@@ -24,8 +24,7 @@
             color: #ffffff;
             display: flex;
             flex-direction: column;
-            /* Отступ для фиксированного хедера */
-            padding-top: 95px;
+            padding-top: 85px;
         }
 
         .container {
@@ -36,7 +35,7 @@
             z-index: 10;
         }
 
-        /* ===== ФИКСИРОВАННЫЙ ХЕДЕР (как на главной) ===== */
+        /* ===== ПРОЗРАЧНЫЙ ФИКСИРОВАННЫЙ ХЕДЕР ===== */
         .header {
             position: fixed;
             top: 0;
@@ -44,40 +43,39 @@
             right: 0;
             width: 100%;
             z-index: 9999;
-            background: white;
+            background: transparent;
             padding: 12px 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .menu-wrapper {
-            background: white;
+            background: transparent;
             border-radius: 50px;
-            border: 2px solid #6bb5e8;
+            border: 2px solid rgba(107, 181, 232, 0.7);
             padding: 10px 20px;
+            backdrop-filter: blur(5px);
         }
 
         .header-top {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            flex-wrap: wrap;
             gap: 12px;
         }
 
         .mobile-logo {
             display: none;
-            font-weight: 800;
-            font-size: 1rem;
-            color: #2c6e9e;
-            background: rgba(255, 255, 240, 0.95);
-            padding: 6px 14px;
-            border-radius: 40px;
-            letter-spacing: 1px;
         }
 
         .burger-btn {
             display: none;
-            background: rgba(44, 110, 158, 0.1);
+            background: rgba(44, 110, 158, 0.15);
             border: 1.5px solid #2c6e9e;
             border-radius: 40px;
             padding: 8px 16px;
@@ -86,10 +84,11 @@
             color: #2c6e9e;
             transition: 0.2s;
             font-weight: 600;
+            backdrop-filter: blur(4px);
         }
 
         .burger-btn:hover {
-            background: rgba(44, 110, 158, 0.2);
+            background: rgba(44, 110, 158, 0.3);
         }
 
         .nav-left, .nav-right {
@@ -108,10 +107,12 @@
             border-radius: 40px;
             transition: 0.2s;
             white-space: nowrap;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
         }
 
         .nav-left a:hover, .nav-right a:hover {
-            background: rgba(44, 110, 158, 0.1);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .nav-container {
@@ -127,7 +128,7 @@
         }
 
         .lang-btn-header {
-            background: rgba(44, 110, 158, 0.15);
+            background: rgba(255, 255, 255, 0.7);
             border: 1.5px solid #2c6e9e;
             color: #2c6e9e;
             padding: 6px 14px;
@@ -138,22 +139,26 @@
             transition: 0.2s;
             font-family: inherit;
             white-space: nowrap;
+            backdrop-filter: blur(4px);
         }
 
         .lang-btn-header:hover {
-            background: rgba(44, 110, 158, 0.3);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         /* Адаптив для мобилок */
         @media (max-width: 880px) {
             body {
-                padding-top: 85px;
+                padding-top: 80px;
             }
             .menu-wrapper {
                 padding: 10px 16px;
             }
+            .header-top {
+                justify-content: flex-end;
+            }
             .mobile-logo {
-                display: inline-block;
+                display: none;
             }
             .burger-btn {
                 display: block;
@@ -182,7 +187,7 @@
                 text-align: center;
                 padding: 10px 12px;
                 width: 100%;
-                background: rgba(255, 255, 255, 0.98);
+                background: rgba(255, 255, 255, 0.9);
                 border-radius: 50px;
                 font-weight: 700;
             }
@@ -200,7 +205,11 @@
 
         @media (max-width: 600px) {
             body {
-                padding-top: 80px;
+                padding-top: 75px;
+            }
+            .burger-btn {
+                padding: 6px 14px;
+                font-size: 1rem;
             }
         }
 
@@ -330,13 +339,11 @@
 </head>
 <body>
 
-<header class="header">
+<header class="header" id="mainHeader">
     <div class="container">
         <div class="menu-wrapper">
             <div class="header-top">
-                <div class="mobile-logo">
-                    🎬 <span>Тимир & Ньургун</span>
-                </div>
+                <div class="mobile-logo"></div>
                 <div class="burger-btn" id="burgerBtn">
                     <i class="fas fa-bars"></i> Меню
                 </div>
@@ -366,7 +373,7 @@
             <h2 class="video-title" id="currentVideoTitle">📺 1 серия - Знакомство</h2>
             <div class="video-wrapper">
                 <video id="mainVideo" controls controlsList="nodownload" poster="img/poster.png">
-                    <source src="video/1серия.mp4" type="video/mp4">
+                    <source src="video/1seriya.mp4" type="video/mp4">
                 </video>
             </div>
             <p style="text-align: center; font-size: 0.8rem; margin-top: 10px; opacity: 0.7; color: #2c6e9e;">💡 Нажмите на кнопку воспроизведения</p>
@@ -375,19 +382,19 @@
         <div class="episodes-list">
             <h3><i class="fas fa-list"></i> <span id="episodesTitle">Список серий</span></h3>
             <div class="episodes-grid">
-                <button class="episode-btn active" data-video="video/1серия.mp4" data-title-ru="🎬 1 серия - Знакомство" data-title-sah="🎬 1 сиэрийэ - Билcиһии">
+                <button class="episode-btn active" data-video="video/1seriya.mp4" data-title-ru="🎬 1 серия - Знакомство" data-title-sah="🎬 1 сиэрийэ - Билcиһии">
                     <i class="fas fa-play"></i> <span class="episode-text">1 серия</span>
                 </button>
-                <button class="episode-btn" data-video="video/2серия.mp4" data-title-ru="🎬 2 серия - Тайна озера" data-title-sah="🎬 2 сиэрийэ - Күөл таайана">
+                <button class="episode-btn" data-video="video/2seriya.mp4" data-title-ru="🎬 2 серия - Тайна озера" data-title-sah="🎬 2 сиэрийэ - Күөл таайана">
                     <i class="fas fa-play"></i> <span class="episode-text">2 серия</span>
                 </button>
-                <button class="episode-btn" data-video="video/3серия.mp4" data-title-ru="🎬 3 серия - Северное сияние" data-title-sah="🎬 3 сиэрийэ - Хотугу сырдык">
+                <button class="episode-btn" data-video="video/3seriya.mp4" data-title-ru="🎬 3 серия - Северное сияние" data-title-sah="🎬 3 сиэрийэ - Хотугу сырдык">
                     <i class="fas fa-play"></i> <span class="episode-text">3 серия</span>
                 </button>
-                <button class="episode-btn" data-video="video/4серия.mp4" data-title-ru="🎬 4 серия - Новый друг" data-title-sah="🎬 4 сиэрийэ - Саҥа доҕор">
+                <button class="episode-btn" data-video="video/4seriya.mp4" data-title-ru="🎬 4 серия - Новый друг" data-title-sah="🎬 4 сиэрийэ - Саҥа доҕор">
                     <i class="fas fa-play"></i> <span class="episode-text">4 серия</span>
                 </button>
-                <button class="episode-btn" data-video="video/5серия.mp4" data-title-ru="🎬 5 серия - Песня Ньургуна" data-title-sah="🎬 5 сиэрийэ - Ньургун ырыата">
+                <button class="episode-btn" data-video="video/5seriya.mp4" data-title-ru="🎬 5 серия - Песня Ньургуна" data-title-sah="🎬 5 сиэрийэ - Ньургун ырыата">
                     <i class="fas fa-music"></i> <span class="episode-text">5 серия</span>
                 </button>
             </div>
@@ -461,6 +468,16 @@
     });
 
     updateLanguage();
+
+    // Эффект скролла для хедера
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
 
     // ----- Бургер-меню -----
     const burgerBtn = document.getElementById('burgerBtn');
