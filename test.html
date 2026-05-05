@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Тест | Тимир уонна Ньургун</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            background-image: url('img/background.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* Отступ для фиксированного хедера */
+            padding-top: 95px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== ФИКСИРОВАННЫЙ ХЕДЕР ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            background: white;
+            padding: 12px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-wrapper {
+            background: white;
+            border-radius: 50px;
+            border: 2px solid #6bb5e8;
+            padding: 10px 20px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .mobile-logo {
+            display: none;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #2c6e9e;
+            background: rgba(255, 255, 240, 0.95);
+            padding: 6px 14px;
+            border-radius: 40px;
+            letter-spacing: 1px;
+        }
+
+        .burger-btn {
+            display: none;
+            background: rgba(44, 110, 158, 0.1);
+            border: 1.5px solid #2c6e9e;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #2c6e9e;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+
+        .burger-btn:hover {
+            background: rgba(44, 110, 158, 0.2);
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-left a, .nav-right a {
+            color: #2c6e9e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-left a:hover, .nav-right a:hover {
+            background: rgba(44, 110, 158, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .lang-wrapper {
+            margin-left: 5px;
+        }
+
+        .lang-btn-header {
+            background: rgba(44, 110, 158, 0.15);
+            border: 1.5px solid #2c6e9e;
+            color: #2c6e9e;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .lang-btn-header:hover {
+            background: rgba(44, 110, 158, 0.3);
+        }
+
+        /* Адаптив для мобилок */
+        @media (max-width: 880px) {
+            body {
+                padding-top: 85px;
+            }
+            .menu-wrapper {
+                padding: 10px 16px;
+            }
+            .mobile-logo {
+                display: inline-block;
+            }
+            .burger-btn {
+                display: block;
+            }
+            .nav-container {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 15px;
+                width: 100%;
+                gap: 12px;
+                border-top: 1px solid rgba(44, 110, 158, 0.2);
+                padding-top: 15px;
+            }
+            .nav-container.open {
+                display: flex;
+            }
+            .nav-left, .nav-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                align-items: stretch;
+            }
+            .nav-left a, .nav-right a {
+                display: block;
+                text-align: center;
+                padding: 10px 12px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                border-radius: 50px;
+                font-weight: 700;
+            }
+            .lang-wrapper {
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+            .lang-btn-header {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-top: 80px;
+            }
+        }
+
+        .test-container {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #2c6e9e;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-left: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 40px;
+            transition: 0.2s;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .option input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #FFB347;
+        }
+
+        .option span {
+            font-size: 1rem;
+            color: #2c6e9e;
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .result-btn {
+            background: #FFB347;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 60px;
+            color: #1e3b4f;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 20px;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            transition: 0.2s;
+        }
+
+        .result-btn:hover {
+            background: #ff9f1a;
+            transform: scale(1.02);
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #2c6e9e;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: rgba(30, 60, 90, 0.8);
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 800px) {
+            .test-container { padding: 20px; }
+            .question-text { font-size: 1rem; }
+            .option span { font-size: 0.85rem; }
+            .score { font-size: 1rem; }
+            .result-btn { font-size: 1rem; padding: 10px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="menu-wrapper">
+            <div class="header-top">
+                <div class="mobile-logo">
+                    📝 <span>Тимир & Ньургун</span>
+                </div>
+                <div class="burger-btn" id="burgerBtn">
+                    <i class="fas fa-bars"></i> Меню
+                </div>
+            </div>
+            <div class="nav-container" id="navContainer">
+                <div class="nav-left">
+                    <a href="index.html" id="navHome">Главная</a>
+                    <a href="index.html#about-multik" id="navAbout">О мультсериале</a>
+                    <a href="index.html#characters-slider" id="navCharacters">Персонажи</a>
+                </div>
+                <div class="nav-right">
+                    <a href="mypage.html" id="navInteractive">Интерактив</a>
+                    <a href="watch.html" id="navWatch">Смотреть</a>
+                    <a href="index.html#contact" id="navContacts">Контакты</a>
+                    <div class="lang-wrapper">
+                        <button class="lang-btn-header" id="langToggle">🇷🇺 Якутский</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main style="flex: 1;">
+    <div class="container">
+        <div class="test-container">
+            <div id="questionsContainer"></div>
+            <button class="result-btn" id="submitBtn">Проверить</button>
+            <div id="scoreDisplay" class="score"></div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p id="footerText">© 2026 «Тимир уонна Ньургун» | Проверь свои знания!</p>
+</footer>
+
+<script>
+    const headerTranslations = {
+        ru: {
+            navHome: "Главная",
+            navAbout: "О мультсериале",
+            navCharacters: "Персонажи",
+            navInteractive: "Интерактив",
+            navWatch: "Смотреть",
+            navContacts: "Контакты",
+            submitBtn: "✅ Проверить",
+            footerText: "© 2026 «Тимир уонна Ньургун» | Проверь свои знания!",
+            langBtn: "🇸🇦 Саха тыла"
+        },
+        sah: {
+            navHome: "Сүрүн сирэй",
+            navAbout: "Ойуулук туһунан",
+            navCharacters: "Дьоруойдар",
+            navInteractive: "Оонньуулар",
+            navWatch: "Көрүөххэ",
+            navContacts: "Билсэр ситим",
+            submitBtn: "✅ Тургутуу",
+            footerText: "© 2026 «Тимир уонна Ньургун» | Билиилэрин тургутуу!",
+            langBtn: "🇷🇺 Нууччалыы"
+        }
+    };
+
+    const questions = {
+        ru: [
+            { text: "1. Корова замычала, оделась в наряд (зазеленела)", options: ["Поле/луг", "Лес", "Река", "Гора"], correct: 0 },
+            { text: "2. В белой бересте два ворона спорят", options: ["Уши", "Глаза", "Руки", "Ноги"], correct: 1 },
+            { text: "3. Ребенок лежит, но ушей нет", options: ["Мальчик", "Девочка", "Кукла", "Медведь"], correct: 2 },
+            { text: "4. Мой синий бык замычал на том берегу реки", options: ["Луна", "Звезда", "Солнце", "Облако"], correct: 2 },
+            { text: "5. Ног нет, а бежит", options: ["Ветер", "Вода/река", "Огонь", "Земля"], correct: 1 },
+            { text: "6. Маленький мальчик построил крошечный домик", options: ["Заяц", "Белка", "Лиса", "Мышь"], correct: 1 },
+            { text: "7. Белый шелк набросили на высокую гору", options: ["Снег", "Туман", "Небо", "Облака"], correct: 2 },
+            { text: "8. С копытами, с рогами, траву ест", options: ["Лошадь", "Корова", "Овца", "Коза"], correct: 1 },
+            { text: "9. Зимой холодный, летом жаркий, его никто не видит", options: ["Солнце", "Ветер", "Мороз", "Дождь"], correct: 1 }
+        ],
+        sah: [
+            { text: "1. Ынах маҥыраата, түппэтин таҥастаата", options: ["Хонуу", "Ойуур", "Үрэх", "Хайа"], correct: 0 },
+            { text: "2. Үрүҥ туос иһигэр икки суор үҥсүүтэ", options: ["Кулгаах", "Харах", "Илии", "Атах"], correct: 1 },
+            { text: "3. Оҕо сытар, кулгааҕа суох", options: ["Уол оҕо", "Кыыс оҕо", "Куукула", "Эһэ"], correct: 2 },
+            { text: "4. Күөх атыыр оҕуһум өрүс уҥуор маҥыраата", options: ["Ый", "Сулус", "Күн", "Былыт"], correct: 2 },
+            { text: "5. Атахтаах суох, сүүрэр", options: ["Тыал", "Уу", "Уот", "Сир"], correct: 1 },
+            { text: "6. Кырачаан уолчаан кып-кыра дьиэни туппут", options: ["Куобах", "Тииҥ", "Саһыл", "Күөл"], correct: 1 },
+            { text: "7. Үрүҥ солкону үрдүк хайа үрдүгэр бырахтылар", options: ["Хаар", "Халлаан", "Былыт", "Тыал"], correct: 1 },
+            { text: "8. Туйахтаах, муостаах, оту сиир", options: ["Атыыр", "Ынах", "Тураҕас", "Коза"], correct: 1 },
+            { text: "9. Кыһын тымныы, сайын итии, кинини ким да көрбөт", options: ["Күн", "Тыал", "Тымныы", "Самыыр"], correct: 1 }
+        ]
+    };
+
+    let currentLang = localStorage.getItem('appLanguage') || 'ru';
+
+    function updateHeaderLanguage() {
+        const t = headerTranslations[currentLang];
+        document.getElementById('navHome').textContent = t.navHome;
+        document.getElementById('navAbout').textContent = t.navAbout;
+        document.getElementById('navCharacters').textContent = t.navCharacters;
+        document.getElementById('navInteractive').textContent = t.navInteractive;
+        document.getElementById('navWatch').textContent = t.navWatch;
+        document.getElementById('navContacts').textContent = t.navContacts;
+        document.getElementById('submitBtn').innerHTML = t.submitBtn;
+        document.getElementById('footerText').textContent = t.footerText;
+        document.getElementById('langToggle').innerHTML = t.langBtn;
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questionsContainer');
+        const q = questions[currentLang];
+        container.innerHTML = '';
+        
+        q.forEach((question, idx) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <div class="question-text">${question.text}</div>
+                <div class="options" data-q="${idx}">
+                    ${question.options.map((opt, optIdx) => `
+                        <label class="option">
+                            <input type="radio" name="q${idx}" value="${optIdx}">
+                            <span>${opt}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(questionDiv);
+        });
+        
+        document.getElementById('scoreDisplay').innerHTML = '';
+    }
+
+    function checkAnswers() {
+        const q = questions[currentLang];
+        let correct = 0;
+        
+        for (let i = 0; i < q.length; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected && parseInt(selected.value) === q[i].correct) {
+                correct++;
+            }
+        }
+        
+        const percent = Math.round((correct / q.length) * 100);
+        let message = '';
+        
+        if (currentLang === 'ru') {
+            if (percent === 100) message = '🎉 Отлично! Ты знаешь якутские загадки! 🎉';
+            else if (percent >= 70) message = '👍 Хорошо! Но можно и лучше!';
+            else if (percent >= 50) message = '📚 Неплохо, но стоит поучиться!';
+            else message = '💪 Попробуй ещё раз! У тебя получится!';
+            document.getElementById('scoreDisplay').innerHTML = `
+                <div>✅ Правильных ответов: ${correct} из ${q.length}</div>
+                <div>📊 Результат: ${percent}%</div>
+                <div>✨ ${message} ✨</div>
+            `;
+        } else {
+            if (percent === 100) message = '🎉 Дьикти! Сахалыы таабырыннары билэҕин! 🎉';
+            else if (percent >= 70) message = '👍 Үчүгэй! Ол эрэн ордук кыһаныахха сөп!';
+            else if (percent >= 50) message = '📚 Үчүгэйэ суох, эрчиллиэххэ наада!';
+            else message = '💪 Хатылаа, барыар кыайыаҥ!';
+            document.getElementById('scoreDisplay').innerHTML = `
+                <div>✅ Сөп эппиэттэр: ${correct} из ${q.length}</div>
+                <div>📊 Түмүк: ${percent}%</div>
+                <div>✨ ${message} ✨</div>
+            `;
+        }
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', checkAnswers);
+    
+    const langBtn = document.getElementById('langToggle');
+    langBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'ru' ? 'sah' : 'ru';
+        localStorage.setItem('appLanguage', currentLang);
+        updateHeaderLanguage();
+        renderQuestions();
+    });
+
+    // ----- Бургер-меню -----
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navContainer = document.getElementById('navContainer');
+    burgerBtn.addEventListener('click', () => {
+        navContainer.classList.toggle('open');
+        if (navContainer.classList.contains('open')) {
+            burgerBtn.innerHTML = '<i class="fas fa-times"></i> Закрыть';
+        } else {
+            burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+        }
+    });
+
+    // Закрываем меню при клике на ссылку
+    document.querySelectorAll('.nav-left a, .nav-right a').forEach(anchor => {
+        anchor.addEventListener('click', () => {
+            if (window.innerWidth <= 880 && navContainer.classList.contains('open')) {
+                navContainer.classList.remove('open');
+                burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+            }
+        });
+    });
+    
+    updateHeaderLanguage();
+    renderQuestions();
+</script>
+</body>
+</html>

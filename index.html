@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Тимир уонна Ньургун | Мультсериал</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            background-image: url('img/background.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+            /* Важно: отступ для фиксированного хедера, чтобы контент не прятался под ним */
+            padding-top: 95px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== ХЕДЕР ЖЁСТКО ЗАФИКСИРОВАН СВЕРХУ ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            background: white; /* Сплошной белый фон — гарантия видимости */
+            padding: 12px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Меню-обертка */
+        .menu-wrapper {
+            background: white;
+            border-radius: 50px;
+            border: 2px solid #6bb5e8;
+            padding: 12px 20px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .mobile-logo {
+            display: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #2c6e9e;
+            background: rgba(255,255,240,0.95);
+            padding: 6px 14px;
+            border-radius: 40px;
+            letter-spacing: 1px;
+        }
+
+        .burger-btn {
+            display: none;
+            background: rgba(44, 110, 158, 0.1);
+            border: 1.5px solid #2c6e9e;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #2c6e9e;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+
+        .burger-btn:hover {
+            background: rgba(44, 110, 158, 0.2);
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-left a, .nav-right a {
+            color: #2c6e9e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-left a:hover, .nav-right a:hover {
+            background: rgba(44, 110, 158, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .lang-wrapper {
+            margin-left: 5px;
+        }
+
+        .lang-btn-header {
+            background: rgba(44, 110, 158, 0.15);
+            border: 1.5px solid #2c6e9e;
+            color: #2c6e9e;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        /* Адаптив для мобилок: хедер всё так же фиксирован */
+        @media (max-width: 880px) {
+            body {
+                padding-top: 85px;
+            }
+            .mobile-logo {
+                display: inline-block;
+            }
+            .burger-btn {
+                display: block;
+            }
+            .nav-container {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 18px;
+                width: 100%;
+                gap: 12px;
+                border-top: 1px solid rgba(44, 110, 158, 0.2);
+                padding-top: 18px;
+            }
+            .nav-container.open {
+                display: flex;
+            }
+            .nav-left, .nav-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+                align-items: stretch;
+            }
+            .nav-left a, .nav-right a {
+                display: block;
+                text-align: center;
+                padding: 10px 12px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                border-radius: 50px;
+                font-weight: 700;
+            }
+            .lang-wrapper {
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+            .lang-btn-header {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-top: 80px;
+            }
+        }
+
+        /* Hero и остальные секции */
+        .hero-section {
+            padding: 40px 0 40px;
+        }
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .hero-left, .hero-right {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+        .hero-left img, .hero-right img {
+            max-width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+        }
+        .hero-center {
+            flex: 2;
+            text-align: center;
+        }
+        .hero-center h1 {
+            font-size: 3.2rem;
+            color: #2c6e9e;
+            text-shadow: 2px 2px 0 rgba(255,255,255,0.3);
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+        .watch-btn {
+            background: #FFB347;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-radius: 60px;
+            color: #1e3b4f;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Montserrat Alternates', sans-serif;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .watch-btn:hover {
+            background: #ff9f1a;
+            transform: scale(1.02);
+        }
+        .characters-slider-section {
+            padding: 40px 0 30px;
+        }
+        .characters-slider-section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .slider-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .slider-wrapper {
+            overflow: hidden;
+            border-radius: 80px;
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+        .slider-card {
+            flex: 0 0 100%;
+            background-image: url('img/облако.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 80px;
+            padding: 60px 80px;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .card-text {
+            flex: 1;
+            min-width: 280px;
+            text-align: center;
+        }
+        .card-text h3 {
+            font-size: 2.8rem;
+            color: #2c6e9e;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+            font-weight: 800;
+        }
+        .card-text p {
+            font-size: 1.1rem;
+            color: #2c6e9e;
+            line-height: 1.5;
+            font-weight: 500;
+            text-align: left;
+        }
+        .card-image {
+            flex: 0.5;
+            min-width: 240px;
+            text-align: center;
+        }
+        .card-image img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2));
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.6);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: white;
+            transition: 0.2s;
+            z-index: 20;
+        }
+        .slider-prev { left: -20px; }
+        .slider-next { right: -20px; }
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .dot.active {
+            background: #ffffff;
+            width: 25px;
+            border-radius: 10px;
+        }
+        .about-multik-section {
+            padding: 50px 0;
+        }
+        .about-multik-card {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            padding: 40px 50px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.2);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .about-multik-card h2 {
+            font-size: 2rem;
+            text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        .about-multik-card .story-text {
+            font-size: 1.2rem;
+            color: #2c6e9e;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        .about-multik-card .story-text p {
+            margin-bottom: 20px;
+        }
+        .story-highlight {
+            background: rgba(255,255,255,0.08);
+            padding: 15px;
+            border-radius: 35px;
+            margin-top: 20px;
+            border-left: 4px solid #FFE7A3;
+            font-size: 1.1rem;
+            color: #2c6e9e;
+        }
+        .footer-contact {
+            background: rgba(30, 60, 90, 0.8);
+            padding: 30px 0 20px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            margin-top: 20px;
+        }
+        .footer-contact-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .footer-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .contact-details-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .contact-details-footer a {
+            color: #e0f0ff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .footer-logo {
+            text-align: right;
+        }
+        .footer-copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+        }
+        @media (max-width: 1000px) {
+            .slider-card { padding: 40px 30px; flex-direction: column; }
+            .card-text p { text-align: center; }
+            .card-text h3 { font-size: 2.2rem; }
+            .card-image img { max-width: 200px; }
+        }
+        @media (max-width: 800px) {
+            .hero-center h1 { font-size: 2.4rem; }
+            .watch-btn { padding: 10px 28px; font-size: 1.2rem; }
+            .hero-left img, .hero-right img { max-height: 140px; }
+            .about-multik-card { padding: 25px; }
+            .about-multik-card h2 { font-size: 1.5rem; }
+            .about-multik-card .story-text { font-size: 1rem; }
+        }
+        @media (max-width: 600px) {
+            .hero-section { padding: 20px 0; }
+            .hero-content { flex-direction: column; }
+            .hero-left, .hero-right { order: 1; }
+            .hero-center { order: 2; }
+            .hero-left img, .hero-right img { max-height: 110px; }
+            .hero-center h1 { font-size: 1.8rem; }
+            .watch-btn { padding: 8px 22px; font-size: 1rem; }
+            .characters-slider-section h2 { font-size: 1.5rem; }
+            .slider-card { padding: 25px 15px; border-radius: 50px; }
+            .card-text h3 { font-size: 1.8rem; }
+            .card-text p { font-size: 0.85rem; }
+            .card-image img { max-width: 140px; }
+            .slider-btn { width: 34px; height: 34px; font-size: 1rem; }
+            .slider-prev { left: -10px; }
+            .slider-next { right: -10px; }
+            .footer-contact-inner { flex-direction: column; text-align: center; }
+            .footer-logo { text-align: center; }
+            .contact-details-footer a { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="menu-wrapper">
+            <div class="header-top">
+                <div class="mobile-logo">
+                    ☀️ <span>Тимир & Ньургун</span>
+                </div>
+                <div class="burger-btn" id="burgerBtn">
+                    <i class="fas fa-bars"></i> Меню
+                </div>
+            </div>
+            <div class="nav-container" id="navContainer">
+                <div class="nav-left">
+                    <a href="#" id="navHome">Главная</a>
+                    <a href="#about-multik" id="navAbout">О мультсериале</a>
+                    <a href="#characters-slider" id="navCharacters">Персонажи</a>
+                </div>
+                <div class="nav-right">
+                    <a href="mypage.html" id="navInteractive">Интерактив</a>
+                    <a href="watch.html" id="navWatch">Смотреть</a>
+                    <a href="#contact" id="navContacts">Контакты</a>
+                    <div class="lang-wrapper">
+                        <button class="lang-btn-header" id="langToggle">🇷🇺 Якутский</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-left">
+                <img src="img/ньургун.png" alt="Ньургун">
+            </div>
+            <div class="hero-center">
+                <h1 id="mainTitle">Тимир уонна Ньургун</h1>
+                <a href="watch.html" class="watch-btn" id="watchBtnText">🎬 Смотреть</a>
+            </div>
+            <div class="hero-right">
+                <img src="img/тимир1.png" alt="Тимир">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="characters-slider-section" id="characters-slider">
+    <div class="container">
+        <h2 id="charactersTitle">Персонажи</h2>
+        <div class="slider-container">
+            <button class="slider-btn slider-prev" id="prevBtn">❮</button>
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slider-card">
+                        <div class="card-text">
+                            <h3 id="charName1">Ньургун</h3>
+                            <p id="charDesc1">Незатейливый озорник, который всегда в движении. Постоянно придумывает новые шалости и приключения для себя и друзей, но порой попадает в передряги — сначала делает, потом думает. Обожает природу и игры на улице — с ним не соскучишься!</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="img/ньургун1.png" alt="Ньургун">
+                        </div>
+                    </div>
+                    <div class="slider-card">
+                        <div class="card-text">
+                            <h3 id="charName2">Тимир</h3>
+                            <p id="charDesc2">Спокойный и рассудительный друг, который всегда готов прийти на помощь. Любит головоломки, эксперименты и знает все о якутских традициях; подскажет, как превратить знания в дело. Надежный и терпеливый — с ним спокойно и интересно.</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="img/тимир.png" alt="Тимир">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-btn slider-next" id="nextBtn">❯</button>
+        </div>
+        <div class="dots" id="dotsContainer"></div>
+    </div>
+</div>
+
+<div class="about-multik-section" id="about-multik">
+    <div class="container">
+        <div class="about-multik-card">
+            <h2 id="aboutTitle">📖 О МУЛЬТСЕРИАЛЕ</h2>
+            <div class="story-text">
+                <p id="aboutText1">Сюжет мультсериала разворачивается вокруг озорного мальчика <strong>Ньургуна</strong>, который живет в живописной якутской деревне. Каждый эпизод начинается с того, что Ньургун сталкивается с новой ситуацией или проблемой, будь то необходимость научиться дружить, уважать старших или понимать важность природы.</p>
+                <p id="aboutText2">На помощь ему приходит его лучший друг <strong>Тимир</strong> — умный и всезнающий мальчик, который знает все о якутских традициях и обычаях. Тимир не только делится знаниями, но и показывает Ньургуну, как применять их в повседневной жизни.</p>
+                <div class="story-highlight" id="aboutHighlight">
+                    <i class="fas fa-feather-alt"></i> Каждая серия — это увлекательное путешествие в мир якутских легенд!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer-contact" id="contact">
+    <div class="container">
+        <div class="footer-contact-inner">
+            <div class="footer-info">
+                <h3><i class="fas fa-envelope"></i> <span id="contactsTitle">Контакты</span></h3>
+                <div class="contact-details-footer">
+                    <a href="mailto:timirnurgun@mail.ru"><i class="fas fa-envelope"></i> timirnurgun@mail.ru</a>
+                    <a href="tel:+79679287970"><i class="fas fa-phone-alt"></i> +7 967 928 79 70</a>
+                    <a><i class="fas fa-map-marker-alt"></i> Ул. Строителей 8а, Якутск, 677001</a>
+                </div>
+            </div>
+            <div class="footer-logo">
+                <h2>☁️ Тимир ☁️ Ньургун</h2>
+                <p id="footerTagline">Дружба, небо и волшебство</p>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p id="footerCopyright">© 2025 «Тимир уонна Ньургун» | Для детей и родителей | Сделано в Якутии</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Translations (русский / якутский)
+    const translations = {
+        ru: {
+            navHome: "Главная", navAbout: "О мультсериале", navCharacters: "Персонажи",
+            navInteractive: "Интерактив", navWatch: "Смотреть", navContacts: "Контакты",
+            mainTitle: "Тимир уонна Ньургун", watchBtn: "🎬 Смотреть", charactersTitle: "Персонажи",
+            charName1: "Ньургун", charDesc1: "Незатейливый озорник, который всегда в движении. Постоянно придумывает новые шалости и приключения для себя и друзей, но порой попадает в передряги — сначала делает, потом думает. Обожает природу и игры на улице — с ним не соскучишься!",
+            charName2: "Тимир", charDesc2: "Спокойный и рассудительный друг, который всегда готов прийти на помощь. Любит головоломки, эксперименты и знает все о якутских традициях; подскажет, как превратить знания в дело. Надежный и терпеливый — с ним спокойно и интересно.",
+            aboutTitle: "📖 О МУЛЬТСЕРИАЛЕ", aboutText1: "Сюжет мультсериала разворачивается вокруг озорного мальчика <strong>Ньургуна</strong>, который живет в живописной якутской деревне. Каждый эпизод начинается с того, что Ньургун сталкивается с новой ситуацией или проблемой, будь то необходимость научиться дружить, уважать старших или понимать важность природы.",
+            aboutText2: "На помощь ему приходит его лучший друг <strong>Тимир</strong> — умный и всезнающий мальчик, который знает все о якутских традициях и обычаях. Тимир не только делится знаниями, но и показывает Ньургуну, как применять их в повседневной жизни.",
+            aboutHighlight: "✨ Каждая серия — это увлекательное путешествие в мир якутских легенд!", contactsTitle: "Контакты",
+            footerTagline: "Дружба, небо и волшебство", footerCopyright: "© 2025 «Тимир уонна Ньургун» | Для детей и родителей | Сделано в Якутии", langBtn: "🇸🇦 Саха тыла"
+        },
+        sah: {
+            navHome: "Сүрүн сирэй", navAbout: "Ойуулук туһунан", navCharacters: "Дьоруойдар",
+            navInteractive: "Оонньуулар", navWatch: "Көрүөххэ", navContacts: "Билсэр ситим",
+            mainTitle: "Тимир уонна Ньургун", watchBtn: "🎬 Көрүү", charactersTitle: "Дьоруойдар",
+            charName1: "Ньургун", charDesc1: "Мэник, хамсаныылаах оҕо. Биир да сабыдыаллаах, доҕотторун кытта саҥа көрсүһүүлэри уонна оонньуулары булар, ол эрэн хаттаан мэһэйдэргэ түбэһэр — бастаан оҥорор, онтон толкуйдуур. Айылҕаны уонна таһырдьа оонньууну сөбүлүүр — кининиин сэргэхсиэххэ!",
+            charName2: "Тимир", charDesc2: "Чэпчэки уонна толкуйдаах доҕор, ханнык баҕарар көмөнү оҥорорго бэлэм. Головоломкалары, эксперименнары сөбүлүүр уонна саха үгэстэрин барытын билэр; билиини олоххо хайдах туһанары көрдөрөр. Надежнай уонна сылык — кининиин чэпчэки уонна интэриэһинэй.",
+            aboutTitle: "📖 ОЙУУЛУК ТУУНУНАН", aboutText1: "Ойууллук сюжета сахалыы кэрэ айылҕалаах дэриэбинэҕэ олорор <strong>Ньургун</strong> диэн мэник уол тула эргийэр. Сиэрийэ аайы Ньургун саҥа түгэҥҥэ эбэтэр кыһалҕаҕа түбэһэр, холобур: доҕордоһорго үөрэнэргэ, улахан дьону ытыктыырга, эбэтэр айылҕаны харыстыыр суолтатын өйүүргэ.",
+            aboutText2: "Киниэхэ көмөҕө бастыҥ доҕоро <strong>Тимир</strong> кэлэр — саха төрүт үгэстэрин уонна сиэрдэрин барытын билэр өйүдөөх уол. Тимир билигиин үллэстэрин таһынан, Ньургунҥҥа ол билиини күннээҕи олоххо хайдах туһанары көрдөрөр.",
+            aboutHighlight: "✨ Сиэрийэ аайы — саха алыптарын сиригэр айан!", contactsTitle: "Билсэр ситим",
+            footerTagline: "Доҕордоһуу, халлаан уонна көмүскэл", footerCopyright: "© 2025 «Тимир уонна Ньургун» | Оҕолорго уонна төрөппүттэргэ | Саха сиригэр оҥоһулунна", langBtn: "🇷🇺 Нууччалыы"
+        }
+    };
+
+    let currentLang = localStorage.getItem('appLanguage') || 'ru';
+    function updateLanguage() {
+        const t = translations[currentLang];
+        document.getElementById('navHome').textContent = t.navHome;
+        document.getElementById('navAbout').textContent = t.navAbout;
+        document.getElementById('navCharacters').textContent = t.navCharacters;
+        document.getElementById('navInteractive').textContent = t.navInteractive;
+        document.getElementById('navWatch').textContent = t.navWatch;
+        document.getElementById('navContacts').textContent = t.navContacts;
+        document.getElementById('mainTitle').textContent = t.mainTitle;
+        document.getElementById('watchBtnText').innerHTML = t.watchBtn;
+        document.getElementById('charactersTitle').textContent = t.charactersTitle;
+        document.getElementById('charName1').textContent = t.charName1;
+        document.getElementById('charDesc1').textContent = t.charDesc1;
+        document.getElementById('charName2').textContent = t.charName2;
+        document.getElementById('charDesc2').textContent = t.charDesc2;
+        document.getElementById('aboutTitle').innerHTML = t.aboutTitle;
+        document.getElementById('aboutText1').innerHTML = t.aboutText1;
+        document.getElementById('aboutText2').innerHTML = t.aboutText2;
+        document.getElementById('aboutHighlight').innerHTML = '<i class="fas fa-feather-alt"></i> ' + t.aboutHighlight;
+        document.getElementById('contactsTitle').innerHTML = '<i class="fas fa-envelope"></i> ' + t.contactsTitle;
+        document.getElementById('footerTagline').textContent = t.footerTagline;
+        document.getElementById('footerCopyright').textContent = t.footerCopyright;
+        document.getElementById('langToggle').innerHTML = t.langBtn;
+    }
+    document.getElementById('langToggle').addEventListener('click', () => {
+        currentLang = currentLang === 'ru' ? 'sah' : 'ru';
+        localStorage.setItem('appLanguage', currentLang);
+        updateLanguage();
+    });
+
+    // Слайдер
+    const track = document.getElementById('sliderTrack');
+    const slides = document.querySelectorAll('.slider-card');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('dotsContainer');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        for(let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if(i === currentIndex) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+    function updateDots() { document.querySelectorAll('.dot').forEach((dot, idx) => idx === currentIndex ? dot.classList.add('active') : dot.classList.remove('active')); }
+    function goToSlide(index) { currentIndex = Math.min(Math.max(0, index), totalSlides - 1); track.style.transform = `translateX(-${currentIndex * 100}%)`; updateDots(); }
+    function nextSlide() { goToSlide(currentIndex + 1); }
+    function prevSlide() { goToSlide(currentIndex - 1); }
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    createDots();
+
+    // Бургер-меню
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navContainer = document.getElementById('navContainer');
+    burgerBtn.addEventListener('click', () => {
+        navContainer.classList.toggle('open');
+        burgerBtn.innerHTML = navContainer.classList.contains('open') ? '<i class="fas fa-times"></i> Закрыть' : '<i class="fas fa-bars"></i> Меню';
+    });
+
+    // Плавный скролл к якорям + закрытие меню на мобилках
+    document.querySelectorAll('.nav-left a, .nav-right a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href && href !== '#' && !href.includes('.html')) {
+                e.preventDefault();
+                const targetElem = document.querySelector(href);
+                if(targetElem) { targetElem.scrollIntoView({ behavior: 'smooth' }); }
+                if(window.innerWidth <= 880 && navContainer.classList.contains('open')) {
+                    navContainer.classList.remove('open');
+                    burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+                }
+            }
+        });
+    });
+
+    updateLanguage();
+</script>
+</body>
+</html>

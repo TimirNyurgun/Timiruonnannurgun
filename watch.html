@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Смотреть | Тимир уонна Ньургун</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            background-image: url('img/background.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            /* Отступ для фиксированного хедера */
+            padding-top: 95px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== ФИКСИРОВАННЫЙ ХЕДЕР (как на главной) ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            background: white;
+            padding: 12px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-wrapper {
+            background: white;
+            border-radius: 50px;
+            border: 2px solid #6bb5e8;
+            padding: 10px 20px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .mobile-logo {
+            display: none;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #2c6e9e;
+            background: rgba(255, 255, 240, 0.95);
+            padding: 6px 14px;
+            border-radius: 40px;
+            letter-spacing: 1px;
+        }
+
+        .burger-btn {
+            display: none;
+            background: rgba(44, 110, 158, 0.1);
+            border: 1.5px solid #2c6e9e;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #2c6e9e;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+
+        .burger-btn:hover {
+            background: rgba(44, 110, 158, 0.2);
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-left a, .nav-right a {
+            color: #2c6e9e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-left a:hover, .nav-right a:hover {
+            background: rgba(44, 110, 158, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .lang-wrapper {
+            margin-left: 5px;
+        }
+
+        .lang-btn-header {
+            background: rgba(44, 110, 158, 0.15);
+            border: 1.5px solid #2c6e9e;
+            color: #2c6e9e;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .lang-btn-header:hover {
+            background: rgba(44, 110, 158, 0.3);
+        }
+
+        /* Адаптив для мобилок */
+        @media (max-width: 880px) {
+            body {
+                padding-top: 85px;
+            }
+            .menu-wrapper {
+                padding: 10px 16px;
+            }
+            .mobile-logo {
+                display: inline-block;
+            }
+            .burger-btn {
+                display: block;
+            }
+            .nav-container {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 15px;
+                width: 100%;
+                gap: 12px;
+                border-top: 1px solid rgba(44, 110, 158, 0.2);
+                padding-top: 15px;
+            }
+            .nav-container.open {
+                display: flex;
+            }
+            .nav-left, .nav-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                align-items: stretch;
+            }
+            .nav-left a, .nav-right a {
+                display: block;
+                text-align: center;
+                padding: 10px 12px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                border-radius: 50px;
+                font-weight: 700;
+            }
+            .lang-wrapper {
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+            .lang-btn-header {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-top: 80px;
+            }
+        }
+
+        /* Основной контент */
+        .main-content {
+            flex: 1;
+        }
+
+        .content {
+            padding: 30px 0 40px;
+        }
+
+        .video-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 40px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .video-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2c6e9e;
+            font-weight: 700;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: #000;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .episodes-list {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .episodes-list h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2c6e9e;
+            font-weight: 700;
+        }
+
+        .episodes-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .episode-btn {
+            background: rgba(44, 110, 158, 0.2);
+            border: 2px solid #2c6e9e;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 60px;
+            color: #2c6e9e;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Montserrat Alternates', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .episode-btn:hover {
+            background: rgba(44, 110, 158, 0.4);
+            transform: scale(1.02);
+        }
+
+        .episode-btn.active {
+            background: #FFB347;
+            border-color: #ffffff;
+            color: #1e3b4f;
+        }
+
+        footer {
+            background: rgba(30, 60, 90, 0.8);
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: auto;
+        }
+
+        @media (max-width: 800px) {
+            .video-title {
+                font-size: 1.4rem;
+            }
+            .episodes-list h3 {
+                font-size: 1.4rem;
+            }
+            .episode-btn {
+                padding: 8px 20px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .video-title {
+                font-size: 1.2rem;
+            }
+            .episodes-list h3 {
+                font-size: 1.2rem;
+            }
+            .episode-btn {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="menu-wrapper">
+            <div class="header-top">
+                <div class="mobile-logo">
+                    🎬 <span>Тимир & Ньургун</span>
+                </div>
+                <div class="burger-btn" id="burgerBtn">
+                    <i class="fas fa-bars"></i> Меню
+                </div>
+            </div>
+            <div class="nav-container" id="navContainer">
+                <div class="nav-left">
+                    <a href="index.html" id="navHome">Главная</a>
+                    <a href="index.html#about-multik" id="navAbout">О мультсериале</a>
+                    <a href="index.html#characters-slider" id="navCharacters">Персонажи</a>
+                </div>
+                <div class="nav-right">
+                    <a href="mypage.html" id="navInteractive">Интерактив</a>
+                    <a href="watch.html" id="navWatch">Смотреть</a>
+                    <a href="index.html#contact" id="navContacts">Контакты</a>
+                    <div class="lang-wrapper">
+                        <button class="lang-btn-header" id="langToggle">🇷🇺 Якутский</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container content">
+        <div class="video-section">
+            <h2 class="video-title" id="currentVideoTitle">📺 1 серия - Знакомство</h2>
+            <div class="video-wrapper">
+                <video id="mainVideo" controls controlsList="nodownload" poster="img/poster.png">
+                    <source src="video/1серия.mp4" type="video/mp4">
+                </video>
+            </div>
+            <p style="text-align: center; font-size: 0.8rem; margin-top: 10px; opacity: 0.7; color: #2c6e9e;">💡 Нажмите на кнопку воспроизведения</p>
+        </div>
+
+        <div class="episodes-list">
+            <h3><i class="fas fa-list"></i> <span id="episodesTitle">Список серий</span></h3>
+            <div class="episodes-grid">
+                <button class="episode-btn active" data-video="video/1серия.mp4" data-title-ru="🎬 1 серия - Знакомство" data-title-sah="🎬 1 сиэрийэ - Билcиһии">
+                    <i class="fas fa-play"></i> <span class="episode-text">1 серия</span>
+                </button>
+                <button class="episode-btn" data-video="video/2серия.mp4" data-title-ru="🎬 2 серия - Тайна озера" data-title-sah="🎬 2 сиэрийэ - Күөл таайана">
+                    <i class="fas fa-play"></i> <span class="episode-text">2 серия</span>
+                </button>
+                <button class="episode-btn" data-video="video/3серия.mp4" data-title-ru="🎬 3 серия - Северное сияние" data-title-sah="🎬 3 сиэрийэ - Хотугу сырдык">
+                    <i class="fas fa-play"></i> <span class="episode-text">3 серия</span>
+                </button>
+                <button class="episode-btn" data-video="video/4серия.mp4" data-title-ru="🎬 4 серия - Новый друг" data-title-sah="🎬 4 сиэрийэ - Саҥа доҕор">
+                    <i class="fas fa-play"></i> <span class="episode-text">4 серия</span>
+                </button>
+                <button class="episode-btn" data-video="video/5серия.mp4" data-title-ru="🎬 5 серия - Песня Ньургуна" data-title-sah="🎬 5 сиэрийэ - Ньургун ырыата">
+                    <i class="fas fa-music"></i> <span class="episode-text">5 серия</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p id="footerText">© 2026 «Тимир уонна Ньургун» | Все серии доступны на якутском и русском языках</p>
+</footer>
+
+<script>
+    const translations = {
+        ru: {
+            navHome: "Главная",
+            navAbout: "О мультсериале",
+            navCharacters: "Персонажи",
+            navInteractive: "Интерактив",
+            navWatch: "Смотреть",
+            navContacts: "Контакты",
+            episodesTitle: "Список серий",
+            footerText: "© 2026 «Тимир уонна Ньургун» | Все серии доступны на якутском и русском языках",
+            langBtn: "🇸🇦 Саха тыла",
+            episodeTexts: ["1 серия", "2 серия", "3 серия", "4 серия", "5 серия"]
+        },
+        sah: {
+            navHome: "Сүрүн сирэй",
+            navAbout: "Ойуулук туһунан",
+            navCharacters: "Дьоруойдар",
+            navInteractive: "Оонньуулар",
+            navWatch: "Көрүөххэ",
+            navContacts: "Билсэр ситим",
+            episodesTitle: "Сиэрийэлэр тиһиктэрэ",
+            footerText: "© 2026 «Тимир уонна Ньургун» | Сиэрийэлэр бары сахалыы уонна нууччалыы тылларга бааллар",
+            langBtn: "🇷🇺 Нууччалыы",
+            episodeTexts: ["1 сиэрийэ", "2 сиэрийэ", "3 сиэрийэ", "4 сиэрийэ", "5 сиэрийэ"]
+        }
+    };
+
+    let currentLang = localStorage.getItem('appLanguage') || 'ru';
+
+    function updateLanguage() {
+        const t = translations[currentLang];
+        document.getElementById('navHome').textContent = t.navHome;
+        document.getElementById('navAbout').textContent = t.navAbout;
+        document.getElementById('navCharacters').textContent = t.navCharacters;
+        document.getElementById('navInteractive').textContent = t.navInteractive;
+        document.getElementById('navWatch').textContent = t.navWatch;
+        document.getElementById('navContacts').textContent = t.navContacts;
+        document.getElementById('episodesTitle').innerHTML = '<i class="fas fa-list"></i> ' + t.episodesTitle;
+        document.getElementById('footerText').textContent = t.footerText;
+        document.getElementById('langToggle').innerHTML = t.langBtn;
+
+        const episodeTexts = document.querySelectorAll('.episode-text');
+        episodeTexts.forEach((el, idx) => {
+            if (t.episodeTexts[idx]) el.textContent = t.episodeTexts[idx];
+        });
+
+        const activeBtn = document.querySelector('.episode-btn.active');
+        if (activeBtn) {
+            const videoTitle = document.getElementById('currentVideoTitle');
+            const title = currentLang === 'ru' ? activeBtn.dataset.titleRu : activeBtn.dataset.titleSah;
+            if (title) videoTitle.textContent = title;
+        }
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+        currentLang = currentLang === 'ru' ? 'sah' : 'ru';
+        localStorage.setItem('appLanguage', currentLang);
+        updateLanguage();
+    });
+
+    updateLanguage();
+
+    // ----- Бургер-меню -----
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navContainer = document.getElementById('navContainer');
+    burgerBtn.addEventListener('click', () => {
+        navContainer.classList.toggle('open');
+        if (navContainer.classList.contains('open')) {
+            burgerBtn.innerHTML = '<i class="fas fa-times"></i> Закрыть';
+        } else {
+            burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+        }
+    });
+
+    // Закрываем меню при клике на ссылку
+    document.querySelectorAll('.nav-left a, .nav-right a').forEach(anchor => {
+        anchor.addEventListener('click', () => {
+            if (window.innerWidth <= 880 && navContainer.classList.contains('open')) {
+                navContainer.classList.remove('open');
+                burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+            }
+        });
+    });
+
+    // ----- Видеоплеер -----
+    const videoElement = document.getElementById('mainVideo');
+    const videoTitle = document.getElementById('currentVideoTitle');
+    const episodeBtns = document.querySelectorAll('.episode-btn');
+
+    function loadVideo(videoSrc, title) {
+        videoElement.pause();
+        const sourceElement = videoElement.querySelector('source');
+        sourceElement.src = videoSrc;
+        videoElement.load();
+        videoTitle.textContent = title;
+        localStorage.setItem('lastWatchedEpisode', videoSrc);
+        localStorage.setItem('lastWatchedTitle', title);
+    }
+
+    episodeBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            const videoSrc = this.getAttribute('data-video');
+            const title = currentLang === 'ru' ? this.getAttribute('data-title-ru') : this.getAttribute('data-title-sah');
+
+            if (!videoSrc || !title) {
+                console.error('Ошибка: атрибуты видео не найдены');
+                return;
+            }
+
+            loadVideo(videoSrc, title);
+
+            episodeBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    videoElement.addEventListener('error', function (e) {
+        console.error('Ошибка загрузки видео:', e);
+        const errorMsg = currentLang === 'ru'
+            ? '⚠️ Ошибка загрузки видео. Возможно, файл повреждён или имеет неподдерживаемый формат.'
+            : '⚠️ Видео угурааһына алҕас. Файл алҕастаах эбэтэр формата сөп түбэспэт.';
+        alert(errorMsg);
+    });
+</script>
+</body>
+</html>

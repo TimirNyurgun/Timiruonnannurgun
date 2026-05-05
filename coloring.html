@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Раскраска | Тимир уонна Ньургун</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            background-image: url('img/background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* Отступ для фиксированного хедера */
+            padding-top: 95px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== ФИКСИРОВАННЫЙ ХЕДЕР ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            background: white;
+            padding: 12px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-wrapper {
+            background: white;
+            border-radius: 50px;
+            border: 2px solid #6bb5e8;
+            padding: 10px 20px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .mobile-logo {
+            display: none;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #2c6e9e;
+            background: rgba(255, 255, 240, 0.95);
+            padding: 6px 14px;
+            border-radius: 40px;
+            letter-spacing: 1px;
+        }
+
+        .burger-btn {
+            display: none;
+            background: rgba(44, 110, 158, 0.1);
+            border: 1.5px solid #2c6e9e;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #2c6e9e;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+
+        .burger-btn:hover {
+            background: rgba(44, 110, 158, 0.2);
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-left a, .nav-right a {
+            color: #2c6e9e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-left a:hover, .nav-right a:hover {
+            background: rgba(44, 110, 158, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .lang-wrapper {
+            margin-left: 5px;
+        }
+
+        .lang-btn-header {
+            background: rgba(44, 110, 158, 0.15);
+            border: 1.5px solid #2c6e9e;
+            color: #2c6e9e;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .lang-btn-header:hover {
+            background: rgba(44, 110, 158, 0.3);
+        }
+
+        /* Адаптив для мобилок */
+        @media (max-width: 880px) {
+            body {
+                padding-top: 85px;
+            }
+            .menu-wrapper {
+                padding: 10px 16px;
+            }
+            .mobile-logo {
+                display: inline-block;
+            }
+            .burger-btn {
+                display: block;
+            }
+            .nav-container {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 15px;
+                width: 100%;
+                gap: 12px;
+                border-top: 1px solid rgba(44, 110, 158, 0.2);
+                padding-top: 15px;
+            }
+            .nav-container.open {
+                display: flex;
+            }
+            .nav-left, .nav-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                align-items: stretch;
+            }
+            .nav-left a, .nav-right a {
+                display: block;
+                text-align: center;
+                padding: 10px 12px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                border-radius: 50px;
+                font-weight: 700;
+            }
+            .lang-wrapper {
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+            .lang-btn-header {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-top: 80px;
+            }
+        }
+
+        .coloring-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.15);
+            border-radius: 40px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c6e9e;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .image-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .img-option {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: 0.2s;
+            object-fit: cover;
+        }
+
+        .img-option.active {
+            border-color: #FFB347;
+            transform: scale(1.05);
+        }
+
+        .canvas-container {
+            background: white;
+            border-radius: 20px;
+            padding: 10px;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            border-radius: 15px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .tools-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .size-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 40px;
+        }
+
+        .size-control label {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+
+        #brushSize {
+            width: 100px;
+            cursor: pointer;
+            accent-color: #FFB347;
+        }
+
+        .size-value {
+            color: #2c6e9e;
+            font-weight: 700;
+            min-width: 35px;
+        }
+
+        .eraser-btn {
+            background: rgba(44,110,158,0.2);
+            border: 2px solid #2c6e9e;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: #2c6e9e;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .eraser-btn.active {
+            background: #FFB347;
+            border-color: white;
+            color: #1e3b4f;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            transition: 0.2s;
+        }
+
+        .color-btn.active {
+            border-color: #2c6e9e;
+            transform: scale(1.1);
+        }
+
+        .clear-btn {
+            background: #FFB347;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            color: #1e3b4f;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            margin: 5px;
+            transition: 0.2s;
+        }
+
+        .clear-btn:hover {
+            background: #ff9f1a;
+            transform: scale(1.02);
+        }
+
+        footer {
+            background: rgba(30, 60, 90, 0.8);
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 800px) {
+            .img-option { width: 70px; height: 70px; }
+            .color-btn { width: 35px; height: 35px; }
+            .coloring-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="menu-wrapper">
+            <div class="header-top">
+                <div class="mobile-logo">
+                    🎨 <span>Тимир & Ньургун</span>
+                </div>
+                <div class="burger-btn" id="burgerBtn">
+                    <i class="fas fa-bars"></i> Меню
+                </div>
+            </div>
+            <div class="nav-container" id="navContainer">
+                <div class="nav-left">
+                    <a href="index.html" id="navHome">Главная</a>
+                    <a href="index.html#about-multik" id="navAbout">О мультсериале</a>
+                    <a href="index.html#characters-slider" id="navCharacters">Персонажи</a>
+                </div>
+                <div class="nav-right">
+                    <a href="mypage.html" id="navInteractive">Интерактив</a>
+                    <a href="watch.html" id="navWatch">Смотреть</a>
+                    <a href="index.html#contact" id="navContacts">Контакты</a>
+                    <div class="lang-wrapper">
+                        <button class="lang-btn-header" id="langToggle">🇷🇺 Якутский</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main style="flex:1;">
+    <div class="container">
+        <div class="coloring-content">
+            <h1 id="pageTitle">🎨 Раскраска</h1>
+            
+            <div class="image-selector">
+                <img src="img/рас1.jpg" class="img-option active" data-img="img/рас1.jpg">
+                <img src="img/рас2.jpg" class="img-option" data-img="img/рас2.jpg">
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="coloringCanvas" width="500" height="500" style="width:100%; height:auto; max-width:500px; aspect-ratio:1/1"></canvas>
+            </div>
+
+            <div class="tools-panel">
+                <div class="size-control">
+                    <label id="sizeLabel">🖌️ Размер:</label>
+                    <input type="range" id="brushSize" min="5" max="50" value="15">
+                    <span id="sizeValue" class="size-value">15</span>
+                </div>
+                <button class="eraser-btn" id="eraserBtn">🧽 Ластик</button>
+            </div>
+
+            <div class="color-picker">
+                <div class="color-btn active" style="background:#FF6B6B" data-color="#FF6B6B"></div>
+                <div class="color-btn" style="background:#FF9F4A" data-color="#FF9F4A"></div>
+                <div class="color-btn" style="background:#FFE066" data-color="#FFE066"></div>
+                <div class="color-btn" style="background:#4ECDC4" data-color="#4ECDC4"></div>
+                <div class="color-btn" style="background:#45B7D1" data-color="#45B7D1"></div>
+                <div class="color-btn" style="background:#96CEB4" data-color="#96CEB4"></div>
+                <div class="color-btn" style="background:#6B5B95" data-color="#6B5B95"></div>
+                <div class="color-btn" style="background:#DDA0DD" data-color="#DDA0DD"></div>
+                <div class="color-btn" style="background:#FF6F61" data-color="#FF6F61"></div>
+                <div class="color-btn" style="background:#88B04B" data-color="#88B04B"></div>
+                <div class="color-btn" style="background:#F7CAC9" data-color="#F7CAC9"></div>
+                <div class="color-btn" style="background:#000000" data-color="#000000"></div>
+            </div>
+
+            <button class="clear-btn" id="clearCanvas">🗑 Очистить</button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p id="footerText">© 2025 «Тимир уонна Ньургун» | Играй, рисуй и познавай!</p>
+</footer>
+
+<script>
+    const translations = {
+        ru: {
+            navHome: "Главная",
+            navAbout: "О мультсериале",
+            navCharacters: "Персонажи",
+            navInteractive: "Интерактив",
+            navWatch: "Смотреть",
+            navContacts: "Контакты",
+            pageTitle: "🎨 Раскраска",
+            clearBtn: "🗑 Очистить",
+            eraser: "🧽 Ластик",
+            sizeLabel: "🖌️ Размер:",
+            footerText: "© 2025 «Тимир уонна Ньургун» | Играй, рисуй и познавай!",
+            langBtn: "🇸🇦 Саха тыла"
+        },
+        sah: {
+            navHome: "Сүрүн сирэй",
+            navAbout: "Ойуулук туһунан",
+            navCharacters: "Дьоруойдар",
+            navInteractive: "Оонньуулар",
+            navWatch: "Көрүөххэ",
+            navContacts: "Билсэр ситим",
+            pageTitle: "🎨 Кырааскалааһын",
+            clearBtn: "🗑 Ыраастаа",
+            eraser: "🧽 Ыраастааччы",
+            sizeLabel: "🖌️ Сүпүөх:",
+            footerText: "© 2025 «Тимир уонна Ньургун» | Оонньоо, кырааскалаа уонна бил!",
+            langBtn: "🇷🇺 Нууччалыы"
+        }
+    };
+
+    let currentLang = localStorage.getItem('appLanguage') || 'ru';
+
+    function updateLanguage() {
+        const t = translations[currentLang];
+        document.getElementById('navHome').textContent = t.navHome;
+        document.getElementById('navAbout').textContent = t.navAbout;
+        document.getElementById('navCharacters').textContent = t.navCharacters;
+        document.getElementById('navInteractive').textContent = t.navInteractive;
+        document.getElementById('navWatch').textContent = t.navWatch;
+        document.getElementById('navContacts').textContent = t.navContacts;
+        document.getElementById('pageTitle').innerHTML = t.pageTitle;
+        document.getElementById('clearCanvas').innerHTML = t.clearBtn;
+        document.getElementById('eraserBtn').innerHTML = t.eraser;
+        document.getElementById('sizeLabel').innerHTML = t.sizeLabel;
+        document.getElementById('footerText').textContent = t.footerText;
+        document.getElementById('langToggle').innerHTML = t.langBtn;
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+        currentLang = currentLang === 'ru' ? 'sah' : 'ru';
+        localStorage.setItem('appLanguage', currentLang);
+        updateLanguage();
+    });
+
+    updateLanguage();
+
+    // ----- Бургер-меню -----
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navContainer = document.getElementById('navContainer');
+    burgerBtn.addEventListener('click', () => {
+        navContainer.classList.toggle('open');
+        if (navContainer.classList.contains('open')) {
+            burgerBtn.innerHTML = '<i class="fas fa-times"></i> Закрыть';
+        } else {
+            burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+        }
+    });
+
+    // Закрываем меню при клике на ссылку
+    document.querySelectorAll('.nav-left a, .nav-right a').forEach(anchor => {
+        anchor.addEventListener('click', () => {
+            if (window.innerWidth <= 880 && navContainer.classList.contains('open')) {
+                navContainer.classList.remove('open');
+                burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+            }
+        });
+    });
+
+    // ========== РАСКРАСКА ==========
+    const canvas = document.getElementById('coloringCanvas');
+    const ctx = canvas.getContext('2d');
+    let currentColor = '#FF6B6B';
+    let brushSize = 15;
+    let painting = false;
+    let currentImage = null;
+    let eraserMode = false;
+
+    const sizeSlider = document.getElementById('brushSize');
+    const sizeValue = document.getElementById('sizeValue');
+    sizeSlider.addEventListener('input', () => {
+        brushSize = parseInt(sizeSlider.value);
+        sizeValue.textContent = brushSize;
+    });
+
+    const eraserBtnEl = document.getElementById('eraserBtn');
+    eraserBtnEl.addEventListener('click', () => {
+        eraserMode = !eraserMode;
+        if (eraserMode) {
+            eraserBtnEl.classList.add('active');
+            document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
+        } else {
+            eraserBtnEl.classList.remove('active');
+            document.querySelector(`.color-btn[data-color="${currentColor}"]`).classList.add('active');
+        }
+    });
+
+    document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (eraserMode) {
+                eraserMode = false;
+                eraserBtnEl.classList.remove('active');
+            }
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentColor = btn.dataset.color;
+        });
+    });
+
+    function loadImage(src) {
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            currentImage = src;
+        };
+        img.src = src;
+    }
+
+    function draw(e) {
+        if (!painting) return;
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        let clientX, clientY;
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        
+        const x = (clientX - rect.left) * scaleX;
+        const y = (clientY - rect.top) * scaleY;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, brushSize / 2, 0, Math.PI * 2);
+        
+        if (eraserMode) {
+            ctx.fillStyle = 'white';
+        } else {
+            ctx.fillStyle = currentColor;
+        }
+        ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', (e) => { painting = true; draw(e); });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => painting = false);
+    canvas.addEventListener('mouseleave', () => painting = false);
+    canvas.addEventListener('touchstart', (e) => { painting = true; draw(e); });
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', () => painting = false);
+
+    document.getElementById('clearCanvas').addEventListener('click', () => {
+        if (currentImage) loadImage(currentImage);
+    });
+
+    document.querySelectorAll('.img-option').forEach(imgOption => {
+        imgOption.addEventListener('click', () => {
+            document.querySelectorAll('.img-option').forEach(opt => opt.classList.remove('active'));
+            imgOption.classList.add('active');
+            loadImage(imgOption.dataset.img);
+        });
+    });
+
+    loadImage('img/рас1.jpg');
+</script>
+</body>
+</html>

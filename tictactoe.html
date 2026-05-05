@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Крестики-нолики | Тимир уонна Ньургун</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            background-image: url('img/background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* Отступ для фиксированного хедера */
+            padding-top: 95px;
+        }
+        .container { max-width: 600px; margin: 0 auto; padding: 0 20px; flex: 1; }
+        
+        /* ===== ФИКСИРОВАННЫЙ ХЕДЕР ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            background: white;
+            padding: 12px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-wrapper {
+            background: white;
+            border-radius: 50px;
+            border: 2px solid #6bb5e8;
+            padding: 10px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: calc(100% - 40px);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .mobile-logo {
+            display: none;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #2c6e9e;
+            background: rgba(255, 255, 240, 0.95);
+            padding: 6px 14px;
+            border-radius: 40px;
+            letter-spacing: 1px;
+        }
+        
+        .burger-btn {
+            display: none;
+            background: rgba(44, 110, 158, 0.1);
+            border: 1.5px solid #2c6e9e;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #2c6e9e;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+        
+        .burger-btn:hover {
+            background: rgba(44, 110, 158, 0.2);
+        }
+        
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .nav-left a, .nav-right a {
+            color: #2c6e9e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        
+        .nav-left a:hover, .nav-right a:hover {
+            background: rgba(44, 110, 158, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-wrapper {
+            margin-left: 5px;
+        }
+        
+        .lang-btn-header {
+            background: rgba(44, 110, 158, 0.15);
+            border: 1.5px solid #2c6e9e;
+            color: #2c6e9e;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        
+        .lang-btn-header:hover {
+            background: rgba(44, 110, 158, 0.3);
+        }
+        
+        /* Адаптив для мобилок */
+        @media (max-width: 880px) {
+            body {
+                padding-top: 85px;
+            }
+            .menu-wrapper {
+                width: calc(100% - 20px);
+                padding: 10px 16px;
+            }
+            .mobile-logo {
+                display: inline-block;
+            }
+            .burger-btn {
+                display: block;
+            }
+            .nav-container {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 15px;
+                width: 100%;
+                gap: 12px;
+                border-top: 1px solid rgba(44, 110, 158, 0.2);
+                padding-top: 15px;
+            }
+            .nav-container.open {
+                display: flex;
+            }
+            .nav-left, .nav-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                align-items: stretch;
+            }
+            .nav-left a, .nav-right a {
+                display: block;
+                text-align: center;
+                padding: 10px 12px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                border-radius: 50px;
+                font-weight: 700;
+            }
+            .lang-wrapper {
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+            .lang-btn-header {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding-top: 80px;
+            }
+        }
+        
+        .content-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 40px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2c6e9e;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .cell {
+            background: white;
+            aspect-ratio: 1 / 1;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #2c6e9e;
+            transition: 0.2s;
+        }
+        
+        .cell:hover {
+            transform: scale(1.02);
+            background: #f5f5f5;
+        }
+        
+        .game-status {
+            font-size: 1.3rem;
+            color: #2c6e9e;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .reset-btn {
+            background: #FFB347;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            color: #1e3b4f;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            margin: 5px;
+            transition: 0.2s;
+        }
+        
+        .reset-btn:hover {
+            background: #ff9f1a;
+            transform: scale(1.02);
+        }
+        
+        footer {
+            background: rgba(30, 60, 90, 0.8);
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        @media (max-width: 600px) {
+            .board { gap: 8px; padding: 10px; }
+            .cell { font-size: 2rem; border-radius: 15px; }
+            .game-status { font-size: 1rem; }
+            .content-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+        <div class="menu-wrapper">
+            <div class="header-top">
+                <div class="mobile-logo">
+                    🎮 <span>Тимир & Ньургун</span>
+                </div>
+                <div class="burger-btn" id="burgerBtn">
+                    <i class="fas fa-bars"></i> Меню
+                </div>
+            </div>
+            <div class="nav-container" id="navContainer">
+                <div class="nav-left">
+                    <a href="index.html" id="navHome">Главная</a>
+                    <a href="index.html#about-multik" id="navAbout">О мультсериале</a>
+                    <a href="index.html#characters-slider" id="navCharacters">Персонажи</a>
+                </div>
+                <div class="nav-right">
+                    <a href="mypage.html" id="navInteractive">Интерактив</a>
+                    <a href="watch.html" id="navWatch">Смотреть</a>
+                    <a href="index.html#contact" id="navContacts">Контакты</a>
+                    <div class="lang-wrapper">
+                        <button class="lang-btn-header" id="langToggle">🇷🇺 Якутский</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main style="flex: 1;">
+    <div class="container">
+        <div class="content-card">
+            <h1 id="gameTitle">❌ Крестики-нолики ⭕</h1>
+            <div class="board" id="board"></div>
+            <div class="game-status" id="gameStatus">Ваш ход (X)</div>
+            <button class="reset-btn" id="resetGame">🔄 Новая игра</button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p id="footerText">© 2025 «Тимир уонна Ньургун» | Играй, рисуй и познавай!</p>
+</footer>
+
+<script>
+    const translations = {
+        ru: {
+            navHome: "Главная",
+            navAbout: "О мультсериале",
+            navCharacters: "Персонажи",
+            navInteractive: "Интерактив",
+            navWatch: "Смотреть",
+            navContacts: "Контакты",
+            gameTitle: "❌ Крестики-нолики ⭕",
+            yourTurn: "Ваш ход (X)",
+            aiTurn: "Ход ИИ (O)...",
+            win: "🎉 Ты выиграл! 🎉",
+            aiWin: "🤖 ИИ выиграл!",
+            draw: "🤝 Ничья!",
+            resetBtn: "🔄 Новая игра",
+            footer: "© 2025 «Тимир уонна Ньургун» | Играй, рисуй и познавай!",
+            langBtn: "🇸🇦 Саха тыла"
+        },
+        sah: {
+            navHome: "Сүрүн сирэй",
+            navAbout: "Ойуулук туһунан",
+            navCharacters: "Дьоруойдар",
+            navInteractive: "Оонньуулар",
+            navWatch: "Көрүөххэ",
+            navContacts: "Билсэр ситим",
+            gameTitle: "❌ Кириэстэр-ноликтар ⭕",
+            yourTurn: "Эн хамсаныыҥ (X)",
+            aiTurn: "ИИ хамсаныыта (O)...",
+            win: "🎉 Эн кыайдың! 🎉",
+            aiWin: "🤖 ИИ кыайда!",
+            draw: "🤝 Тэҥнэһии!",
+            resetBtn: "🔄 Саҥа оонньуу",
+            footer: "© 2025 «Тимир уонна Ньургун» | Оонньоо, кырааскалаа уонна бил!",
+            langBtn: "🇷🇺 Нууччалыы"
+        }
+    };
+
+    let currentLang = localStorage.getItem('appLanguage') || 'ru';
+    let board = ['', '', '', '', '', '', '', '', ''];
+    let gameActive = true;
+    const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+    function createBoard() {
+        const boardEl = document.getElementById('board');
+        boardEl.innerHTML = '';
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.index = i;
+            cell.textContent = board[i];
+            cell.addEventListener('click', () => handleMove(i));
+            boardEl.appendChild(cell);
+        }
+    }
+
+    function handleMove(index) {
+        if (!gameActive || board[index] !== '') return;
+        makeMove(index, 'X');
+        if (gameActive) setTimeout(aiMove, 300);
+    }
+
+    function makeMove(index, player) {
+        board[index] = player;
+        updateBoard();
+        const t = translations[currentLang];
+        
+        if (checkWin(player)) {
+            document.getElementById('gameStatus').textContent = player === 'X' ? t.win : t.aiWin;
+            gameActive = false;
+            return;
+        }
+        if (board.every(cell => cell !== '')) {
+            document.getElementById('gameStatus').textContent = t.draw;
+            gameActive = false;
+            return;
+        }
+        document.getElementById('gameStatus').textContent = player === 'X' ? t.aiTurn : t.yourTurn;
+    }
+
+    function aiMove() {
+        if (!gameActive) return;
+        let empty = board.map((c, i) => c === '' ? i : null).filter(v => v !== null);
+        if (empty.length > 0) {
+            let randomIndex = empty[Math.floor(Math.random() * empty.length)];
+            makeMove(randomIndex, 'O');
+        }
+    }
+
+    function checkWin(player) {
+        return winPatterns.some(pattern => pattern.every(i => board[i] === player));
+    }
+
+    function updateBoard() {
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach((cell, i) => cell.textContent = board[i]);
+    }
+
+    function resetGame() {
+        board = ['', '', '', '', '', '', '', '', ''];
+        gameActive = true;
+        updateBoard();
+        const t = translations[currentLang];
+        document.getElementById('gameStatus').textContent = t.yourTurn;
+    }
+
+    function updateLanguage() {
+        const t = translations[currentLang];
+        document.getElementById('navHome').textContent = t.navHome;
+        document.getElementById('navAbout').textContent = t.navAbout;
+        document.getElementById('navCharacters').textContent = t.navCharacters;
+        document.getElementById('navInteractive').textContent = t.navInteractive;
+        document.getElementById('navWatch').textContent = t.navWatch;
+        document.getElementById('navContacts').textContent = t.navContacts;
+        document.getElementById('gameTitle').innerHTML = t.gameTitle;
+        document.getElementById('resetGame').innerHTML = t.resetBtn;
+        document.getElementById('footerText').innerHTML = t.footer;
+        document.getElementById('langToggle').innerHTML = t.langBtn;
+        
+        if (gameActive) {
+            // Определяем кто сейчас ходит по последнему ходу
+            const xCount = board.filter(c => c === 'X').length;
+            const oCount = board.filter(c => c === 'O').length;
+            const currentIsX = xCount === oCount;
+            document.getElementById('gameStatus').textContent = currentIsX ? t.yourTurn : t.aiTurn;
+        }
+    }
+
+    document.getElementById('resetGame').addEventListener('click', resetGame);
+    
+    const langBtn = document.getElementById('langToggle');
+    langBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'ru' ? 'sah' : 'ru';
+        localStorage.setItem('appLanguage', currentLang);
+        updateLanguage();
+    });
+    
+    // ----- Бургер-меню -----
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navContainer = document.getElementById('navContainer');
+    burgerBtn.addEventListener('click', () => {
+        navContainer.classList.toggle('open');
+        if (navContainer.classList.contains('open')) {
+            burgerBtn.innerHTML = '<i class="fas fa-times"></i> Закрыть';
+        } else {
+            burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+        }
+    });
+    
+    // Закрываем меню при клике на ссылку
+    document.querySelectorAll('.nav-left a, .nav-right a').forEach(anchor => {
+        anchor.addEventListener('click', () => {
+            if (window.innerWidth <= 880 && navContainer.classList.contains('open')) {
+                navContainer.classList.remove('open');
+                burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
+            }
+        });
+    });
+    
+    createBoard();
+    updateLanguage();
+</script>
+</body>
+</html>
