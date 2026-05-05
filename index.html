@@ -23,7 +23,6 @@
             color: #ffffff;
             overflow-x: hidden;
             position: relative;
-            /* Важно: отступ для фиксированного хедера, чтобы контент не прятался под ним */
             padding-top: 95px;
         }
 
@@ -43,12 +42,11 @@
             right: 0;
             width: 100%;
             z-index: 9999;
-            background: white; /* Сплошной белый фон — гарантия видимости */
+            background: white;
             padding: 12px 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         
-        /* Меню-обертка */
         .menu-wrapper {
             background: white;
             border-radius: 50px;
@@ -140,7 +138,7 @@
             white-space: nowrap;
         }
 
-        /* Адаптив для мобилок: хедер всё так же фиксирован */
+        /* Адаптив для мобилок */
         @media (max-width: 880px) {
             body {
                 padding-top: 85px;
@@ -197,7 +195,7 @@
             }
         }
 
-        /* Hero и остальные секции */
+        /* Hero секция */
         .hero-section {
             padding: 40px 0 40px;
         }
@@ -251,6 +249,64 @@
             background: #ff9f1a;
             transform: scale(1.02);
         }
+
+        /* Мобильная версия: фото бок о бок сверху */
+        @media (max-width: 800px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            /* Контейнер для двух фото - бок о бок */
+            .hero-images-row {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
+                order: 1;
+            }
+            .hero-left, .hero-right {
+                flex: 0 1 auto;
+                min-width: auto;
+                order: 0;
+            }
+            .hero-left img, .hero-right img {
+                max-height: 130px;
+                width: auto;
+            }
+            .hero-center {
+                order: 2;
+                width: 100%;
+            }
+            .hero-center h1 {
+                font-size: 2.2rem;
+            }
+            .watch-btn {
+                padding: 10px 28px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-section {
+                padding: 20px 0;
+            }
+            .hero-left img, .hero-right img {
+                max-height: 110px;
+            }
+            .hero-center h1 {
+                font-size: 1.8rem;
+            }
+            .watch-btn {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .hero-images-row {
+                gap: 15px;
+            }
+        }
+
+        /* Остальные секции */
         .characters-slider-section {
             padding: 40px 0 30px;
         }
@@ -440,21 +496,11 @@
             .card-image img { max-width: 200px; }
         }
         @media (max-width: 800px) {
-            .hero-center h1 { font-size: 2.4rem; }
-            .watch-btn { padding: 10px 28px; font-size: 1.2rem; }
-            .hero-left img, .hero-right img { max-height: 140px; }
             .about-multik-card { padding: 25px; }
             .about-multik-card h2 { font-size: 1.5rem; }
             .about-multik-card .story-text { font-size: 1rem; }
         }
         @media (max-width: 600px) {
-            .hero-section { padding: 20px 0; }
-            .hero-content { flex-direction: column; }
-            .hero-left, .hero-right { order: 1; }
-            .hero-center { order: 2; }
-            .hero-left img, .hero-right img { max-height: 110px; }
-            .hero-center h1 { font-size: 1.8rem; }
-            .watch-btn { padding: 8px 22px; font-size: 1rem; }
             .characters-slider-section h2 { font-size: 1.5rem; }
             .slider-card { padding: 25px 15px; border-radius: 50px; }
             .card-text h3 { font-size: 1.8rem; }
@@ -504,15 +550,17 @@
 <div class="hero-section">
     <div class="container">
         <div class="hero-content">
-            <div class="hero-left">
-                <img src="img/ньургун.png" alt="Ньургун">
+            <div class="hero-images-row">
+                <div class="hero-left">
+                    <img src="img/ньургун.png" alt="Ньургун">
+                </div>
+                <div class="hero-right">
+                    <img src="img/тимир1.png" alt="Тимир">
+                </div>
             </div>
             <div class="hero-center">
                 <h1 id="mainTitle">Тимир уонна Ньургун</h1>
                 <a href="watch.html" class="watch-btn" id="watchBtnText">🎬 Смотреть</a>
-            </div>
-            <div class="hero-right">
-                <img src="img/тимир1.png" alt="Тимир">
             </div>
         </div>
     </div>
@@ -589,7 +637,6 @@
 </footer>
 
 <script>
-    // Translations (русский / якутский)
     const translations = {
         ru: {
             navHome: "Главная", navAbout: "О мультсериале", navCharacters: "Персонажи",
@@ -608,7 +655,7 @@
             mainTitle: "Тимир уонна Ньургун", watchBtn: "🎬 Көрүү", charactersTitle: "Дьоруойдар",
             charName1: "Ньургун", charDesc1: "Мэник, хамсаныылаах оҕо. Биир да сабыдыаллаах, доҕотторун кытта саҥа көрсүһүүлэри уонна оонньуулары булар, ол эрэн хаттаан мэһэйдэргэ түбэһэр — бастаан оҥорор, онтон толкуйдуур. Айылҕаны уонна таһырдьа оонньууну сөбүлүүр — кининиин сэргэхсиэххэ!",
             charName2: "Тимир", charDesc2: "Чэпчэки уонна толкуйдаах доҕор, ханнык баҕарар көмөнү оҥорорго бэлэм. Головоломкалары, эксперименнары сөбүлүүр уонна саха үгэстэрин барытын билэр; билиини олоххо хайдах туһанары көрдөрөр. Надежнай уонна сылык — кининиин чэпчэки уонна интэриэһинэй.",
-            aboutTitle: "📖 ОЙУУЛУК ТУУНУНАН", aboutText1: "Ойууллук сюжета сахалыы кэрэ айылҕалаах дэриэбинэҕэ олорор <strong>Ньургун</strong> диэн мэник уол тула эргийэр. Сиэрийэ аайы Ньургун саҥа түгэҥҥэ эбэтэр кыһалҕаҕа түбэһэр, холобур: доҕордоһорго үөрэнэргэ, улахан дьону ытыктыырга, эбэтэр айылҕаны харыстыыр суолтатын өйүүргэ.",
+            aboutTitle: "📖 ОЙУУЛУК ТУУНУНАН", aboutText1: "Ойууллук сюжета сахалыы кэрэ айылҕалаах дэриэбинэҕэ олорор <strong>Ньургун</strong> диэн мэник уол тула эргийэр. Сиэрийэ аайы Ньургун саҥа түгэҥҥэ эбэтэр кыһалҕаҕа түбэһэр, холобур: доҕордоһорго үөрэнэргэ, улахан дьону ытыктыырга, эбэтәр айылҕаны харыстыыр суолтатын өйүүргэ.",
             aboutText2: "Киниэхэ көмөҕө бастыҥ доҕоро <strong>Тимир</strong> кэлэр — саха төрүт үгэстэрин уонна сиэрдэрин барытын билэр өйүдөөх уол. Тимир билигиин үллэстэрин таһынан, Ньургунҥҥа ол билиини күннээҕи олоххо хайдах туһанары көрдөрөр.",
             aboutHighlight: "✨ Сиэрийэ аайы — саха алыптарын сиригэр айан!", contactsTitle: "Билсэр ситим",
             footerTagline: "Доҕордоһуу, халлаан уонна көмүскэл", footerCopyright: "© 2025 «Тимир уонна Ньургун» | Оҕолорго уонна төрөппүттэргэ | Саха сиригэр оҥоһулунна", langBtn: "🇷🇺 Нууччалыы"
@@ -624,7 +671,7 @@
         document.getElementById('navInteractive').textContent = t.navInteractive;
         document.getElementById('navWatch').textContent = t.navWatch;
         document.getElementById('navContacts').textContent = t.navContacts;
-        document.getElementById('mainTitle').textContent = t.mainTitle;
+        document.getElementById('mainTitle').innerHTML = t.mainTitle;
         document.getElementById('watchBtnText').innerHTML = t.watchBtn;
         document.getElementById('charactersTitle').textContent = t.charactersTitle;
         document.getElementById('charName1').textContent = t.charName1;
@@ -680,7 +727,6 @@
         burgerBtn.innerHTML = navContainer.classList.contains('open') ? '<i class="fas fa-times"></i> Закрыть' : '<i class="fas fa-bars"></i> Меню';
     });
 
-    // Плавный скролл к якорям + закрытие меню на мобилках
     document.querySelectorAll('.nav-left a, .nav-right a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
