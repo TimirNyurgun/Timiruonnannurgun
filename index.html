@@ -20,9 +20,10 @@
             background-position: center center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            color: #fff;
+            color: #ffffff;
             overflow-x: hidden;
-            padding-top: 95px;
+            position: relative;
+            padding-top: 85px;
         }
 
         .container {
@@ -33,7 +34,7 @@
             z-index: 10;
         }
 
-        /* ===== ФИКСИРОВАННЫЙ ХЕДЕР ===== */
+        /* ===== ХЕДЕР ПРОЗРАЧНЫЙ, НО ФИКСИРОВАННЫЙ ===== */
         .header {
             position: fixed;
             top: 0;
@@ -41,39 +42,41 @@
             right: 0;
             width: 100%;
             z-index: 9999;
-            background: #fff;
+            background: transparent;
             padding: 12px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* При скролле добавляется легкий полупрозрачный фон */
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-
+        
         .menu-wrapper {
-            background: #fff;
+            background: transparent;
             border-radius: 50px;
-            border: 2px solid #6bb5e8;
+            border: 2px solid rgba(107, 181, 232, 0.7);
             padding: 12px 20px;
+            backdrop-filter: blur(5px);
         }
 
         .header-top {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
+            flex-wrap: wrap;
             gap: 12px;
         }
 
         .mobile-logo {
             display: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: #2c6e9e;
-            background: rgba(255, 255, 240, 0.95);
-            padding: 6px 14px;
-            border-radius: 40px;
-            letter-spacing: 1px;
         }
 
         .burger-btn {
             display: none;
-            background: rgba(44, 110, 158, 0.1);
+            background: rgba(44, 110, 158, 0.15);
             border: 1.5px solid #2c6e9e;
             border-radius: 40px;
             padding: 8px 16px;
@@ -82,10 +85,11 @@
             color: #2c6e9e;
             transition: 0.2s;
             font-weight: 600;
+            backdrop-filter: blur(4px);
         }
 
         .burger-btn:hover {
-            background: rgba(44, 110, 158, 0.2);
+            background: rgba(44, 110, 158, 0.3);
         }
 
         .nav-left, .nav-right {
@@ -104,10 +108,12 @@
             border-radius: 40px;
             transition: 0.2s;
             white-space: nowrap;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
         }
 
         .nav-left a:hover, .nav-right a:hover {
-            background: rgba(44, 110, 158, 0.1);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .nav-container {
@@ -115,6 +121,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            transition: all 0.3s ease;
         }
 
         .lang-wrapper {
@@ -122,7 +129,7 @@
         }
 
         .lang-btn-header {
-            background: rgba(44, 110, 158, 0.15);
+            background: rgba(255, 255, 255, 0.7);
             border: 1.5px solid #2c6e9e;
             color: #2c6e9e;
             padding: 6px 14px;
@@ -133,13 +140,91 @@
             transition: 0.2s;
             font-family: inherit;
             white-space: nowrap;
+            backdrop-filter: blur(4px);
+        }
+
+        .lang-btn-header:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Адаптив для мобилок - только меню, без лишнего текста */
+        @media (max-width: 880px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            .header-top {
+                justify-content: flex-end;
+            }
+            
+            .mobile-logo {
+                display: none;
+            }
+            
+            .burger-btn {
+                display: block;
+            }
+            
+            .nav-container {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 18px;
+                width: 100%;
+                gap: 12px;
+                border-top: 1px solid rgba(44, 110, 158, 0.2);
+                padding-top: 18px;
+            }
+            
+            .nav-container.open {
+                display: flex;
+            }
+            
+            .nav-left, .nav-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+                align-items: stretch;
+            }
+            
+            .nav-left a, .nav-right a {
+                display: block;
+                text-align: center;
+                padding: 10px 12px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 50px;
+                font-weight: 700;
+            }
+            
+            .lang-wrapper {
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .lang-btn-header {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-top: 75px;
+            }
+            
+            .burger-btn {
+                padding: 6px 14px;
+                font-size: 1rem;
+            }
         }
 
         /* Hero секция */
         .hero-section {
-            padding: 40px 0;
+            padding: 40px 0 40px;
         }
-
         .hero-content {
             display: flex;
             align-items: center;
@@ -147,35 +232,30 @@
             gap: 30px;
             flex-wrap: wrap;
         }
-
         .hero-left, .hero-right {
             flex: 1;
             min-width: 150px;
             text-align: center;
         }
-
         .hero-left img, .hero-right img {
             max-width: 100%;
             height: auto;
             max-height: 350px;
             object-fit: contain;
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
         }
-
         .hero-center {
             flex: 2;
             text-align: center;
         }
-
         .hero-center h1 {
             font-size: 3.2rem;
             color: #2c6e9e;
-            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.3);
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
             margin-bottom: 25px;
             letter-spacing: 2px;
             font-weight: 800;
         }
-
         .watch-btn {
             background: #FFB347;
             border: none;
@@ -186,50 +266,99 @@
             color: #1e3b4f;
             cursor: pointer;
             transition: 0.2s;
-            font-family: inherit;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            font-family: 'Montserrat Alternates', sans-serif;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             text-decoration: none;
             display: inline-block;
         }
-
         .watch-btn:hover {
             background: #ff9f1a;
             transform: scale(1.02);
         }
 
-        /* Слайдер персонажей */
+        /* Мобильная версия: фото бок о бок сверху */
+        @media (max-width: 800px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            .hero-images-row {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
+                order: 1;
+            }
+            .hero-left, .hero-right {
+                flex: 0 1 auto;
+                min-width: auto;
+                order: 0;
+            }
+            .hero-left img, .hero-right img {
+                max-height: 130px;
+                width: auto;
+            }
+            .hero-center {
+                order: 2;
+                width: 100%;
+            }
+            .hero-center h1 {
+                font-size: 2.2rem;
+            }
+            .watch-btn {
+                padding: 10px 28px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-section {
+                padding: 20px 0;
+            }
+            .hero-left img, .hero-right img {
+                max-height: 110px;
+            }
+            .hero-center h1 {
+                font-size: 1.8rem;
+            }
+            .watch-btn {
+                padding: 8px 22px;
+                font-size: 1rem;
+            }
+            .hero-images-row {
+                gap: 15px;
+            }
+        }
+
+        /* Остальные секции */
         .characters-slider-section {
             padding: 40px 0 30px;
         }
-
         .characters-slider-section h2 {
             font-size: 2rem;
             text-align: center;
             margin-bottom: 30px;
             text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6;
-            color: #fff;
+            color: #ffffff;
             font-weight: 700;
         }
-
         .slider-container {
             position: relative;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .slider-wrapper {
             overflow: hidden;
             border-radius: 80px;
         }
-
         .slider-track {
             display: flex;
             transition: transform 0.4s ease-in-out;
         }
-
         .slider-card {
             flex: 0 0 100%;
-            background-image: url('img/cloud.png');
+            background-image: url('img/облако.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -242,21 +371,18 @@
             gap: 50px;
             flex-wrap: wrap;
         }
-
         .card-text {
             flex: 1;
             min-width: 280px;
             text-align: center;
         }
-
         .card-text h3 {
             font-size: 2.8rem;
             color: #2c6e9e;
             margin-bottom: 25px;
-            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
             font-weight: 800;
         }
-
         .card-text p {
             font-size: 1.1rem;
             color: #2c6e9e;
@@ -264,102 +390,83 @@
             font-weight: 500;
             text-align: left;
         }
-
         .card-image {
             flex: 0.5;
             min-width: 240px;
             text-align: center;
         }
-
         .card-image img {
             width: 100%;
             max-width: 280px;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2));
         }
-
         .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.6);
+            background: rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.6);
             width: 45px;
             height: 45px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.4rem;
-            color: #fff;
+            color: white;
             transition: 0.2s;
             z-index: 20;
         }
-
         .slider-prev { left: -20px; }
         .slider-next { right: -20px; }
-
-        .slider-btn:hover {
-            background: rgba(0, 0, 0, 0.6);
-        }
-
         .dots {
             display: flex;
             justify-content: center;
             gap: 12px;
             margin-top: 25px;
         }
-
         .dot {
             width: 10px;
             height: 10px;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255,255,255,0.4);
             border-radius: 50%;
             cursor: pointer;
-            transition: 0.2s;
         }
-
         .dot.active {
-            background: #fff;
+            background: #ffffff;
             width: 25px;
             border-radius: 10px;
         }
-
-        /* О мультсериале */
         .about-multik-section {
             padding: 50px 0;
         }
-
         .about-multik-card {
             background: rgba(255, 255, 255, 0.12);
             border-radius: 50px;
             padding: 40px 50px;
             text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255,255,255,0.2);
             max-width: 1100px;
             margin: 0 auto;
         }
-
         .about-multik-card h2 {
             font-size: 2rem;
             text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6;
-            color: #fff;
+            color: #ffffff;
             margin-bottom: 30px;
             font-weight: 700;
         }
-
         .about-multik-card .story-text {
             font-size: 1.2rem;
             color: #2c6e9e;
             line-height: 1.5;
             font-weight: 500;
         }
-
         .about-multik-card .story-text p {
             margin-bottom: 20px;
         }
-
         .story-highlight {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,0.08);
             padding: 15px;
             border-radius: 35px;
             margin-top: 20px;
@@ -367,15 +474,12 @@
             font-size: 1.1rem;
             color: #2c6e9e;
         }
-
-        /* Футер */
         .footer-contact {
             background: rgba(30, 60, 90, 0.8);
             padding: 30px 0 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255,255,255,0.15);
             margin-top: 20px;
         }
-
         .footer-contact-inner {
             display: flex;
             flex-wrap: wrap;
@@ -383,18 +487,15 @@
             align-items: center;
             gap: 20px;
         }
-
         .footer-info h3 {
             font-size: 1.3rem;
             margin-bottom: 12px;
         }
-
         .contact-details-footer {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-
         .contact-details-footer a {
             color: #e0f0ff;
             text-decoration: none;
@@ -402,99 +503,29 @@
             align-items: center;
             gap: 8px;
             font-size: 0.9rem;
-            transition: 0.2s;
         }
-
-        .contact-details-footer a:hover {
-            color: #FFE7A3;
-        }
-
         .footer-logo {
             text-align: right;
         }
-
         .footer-copyright {
             text-align: center;
             padding-top: 20px;
             margin-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255,255,255,0.1);
             font-size: 0.75rem;
         }
-
-        /* Адаптивность */
-        @media (max-width: 880px) {
-            body { padding-top: 85px; }
-            
-            .mobile-logo { display: block; }
-            .burger-btn { display: block; }
-            
-            .nav-container {
-                display: none;
-                flex-direction: column;
-                margin-top: 18px;
-                padding-top: 18px;
-                border-top: 1px solid rgba(44, 110, 158, 0.2);
-            }
-            
-            .nav-container.open { display: flex; }
-            
-            .nav-left, .nav-right {
-                flex-direction: column;
-                width: 100%;
-                gap: 10px;
-            }
-            
-            .nav-left a, .nav-right a {
-                display: block;
-                text-align: center;
-                padding: 10px;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.98);
-                border-radius: 50px;
-            }
-            
-            .lang-wrapper {
-                width: 100%;
-                text-align: center;
-                margin-top: 5px;
-            }
-            
-            .lang-btn-header { width: 100%; }
-            
-            .hero-images-row {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                gap: 20px;
-                width: 100%;
-                order: 1;
-            }
-            
-            .hero-left, .hero-right {
-                flex: 0 1 auto;
-                min-width: auto;
-            }
-            
-            .hero-left img, .hero-right img { max-height: 130px; }
-            .hero-center { order: 2; width: 100%; }
-            .hero-center h1 { font-size: 2.2rem; }
-            .watch-btn { padding: 10px 28px; font-size: 1.2rem; }
-        }
-
         @media (max-width: 1000px) {
             .slider-card { padding: 40px 30px; flex-direction: column; }
             .card-text p { text-align: center; }
             .card-text h3 { font-size: 2.2rem; }
             .card-image img { max-width: 200px; }
         }
-
+        @media (max-width: 800px) {
+            .about-multik-card { padding: 25px; }
+            .about-multik-card h2 { font-size: 1.5rem; }
+            .about-multik-card .story-text { font-size: 1rem; }
+        }
         @media (max-width: 600px) {
-            body { padding-top: 80px; }
-            .hero-section { padding: 20px 0; }
-            .hero-left img, .hero-right img { max-height: 110px; }
-            .hero-center h1 { font-size: 1.8rem; }
-            .watch-btn { padding: 8px 22px; font-size: 1rem; }
-            .hero-images-row { gap: 15px; }
             .characters-slider-section h2 { font-size: 1.5rem; }
             .slider-card { padding: 25px 15px; border-radius: 50px; }
             .card-text h3 { font-size: 1.8rem; }
@@ -503,9 +534,6 @@
             .slider-btn { width: 34px; height: 34px; font-size: 1rem; }
             .slider-prev { left: -10px; }
             .slider-next { right: -10px; }
-            .about-multik-card { padding: 25px; }
-            .about-multik-card h2 { font-size: 1.5rem; }
-            .about-multik-card .story-text { font-size: 1rem; }
             .footer-contact-inner { flex-direction: column; text-align: center; }
             .footer-logo { text-align: center; }
             .contact-details-footer a { justify-content: center; }
@@ -514,12 +542,14 @@
 </head>
 <body>
 
-<header class="header">
+<header class="header" id="mainHeader">
     <div class="container">
         <div class="menu-wrapper">
             <div class="header-top">
-                <div class="mobile-logo">✨ Тимир & Ньургун</div>
-                <div class="burger-btn" id="burgerBtn">☰ Меню</div>
+                <div class="mobile-logo"></div>
+                <div class="burger-btn" id="burgerBtn">
+                    <i class="fas fa-bars"></i> Меню
+                </div>
             </div>
             <div class="nav-container" id="navContainer">
                 <div class="nav-left">
@@ -540,74 +570,72 @@
     </div>
 </header>
 
-<main>
-    <div class="hero-section">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-images-row">
-                    <div class="hero-left">
-                        <img src="img/nurgun.png" alt="Ньургун" loading="lazy">
-                    </div>
-                    <div class="hero-right">
-                        <img src="img/timir1.png" alt="Тимир" loading="lazy">
-                    </div>
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-images-row">
+                <div class="hero-left">
+                    <img src="img/ньургун.png" alt="Ньургун">
                 </div>
-                <div class="hero-center">
-                    <h1 id="mainTitle">Тимир уонна Ньургун</h1>
-                    <a href="watch.html" class="watch-btn" id="watchBtnText">🎬 Смотреть</a>
+                <div class="hero-right">
+                    <img src="img/тимир1.png" alt="Тимир">
                 </div>
+            </div>
+            <div class="hero-center">
+                <h1 id="mainTitle">Тимир уонна Ньургун</h1>
+                <a href="watch.html" class="watch-btn" id="watchBtnText">🎬 Смотреть</a>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="characters-slider-section" id="characters-slider">
-        <div class="container">
-            <h2 id="charactersTitle">Персонажи</h2>
-            <div class="slider-container">
-                <button class="slider-btn slider-prev" id="prevBtn">❮</button>
-                <div class="slider-wrapper">
-                    <div class="slider-track" id="sliderTrack">
-                        <div class="slider-card">
-                            <div class="card-text">
-                                <h3 id="charName1">Ньургун</h3>
-                                <p id="charDesc1">Незатейливый озорник, который всегда в движении. Постоянно придумывает новые шалости и приключения для себя и друзей, но порой попадает в передряги — сначала делает, потом думает. Обожает природу и игры на улице — с ним не соскучишься!</p>
-                            </div>
-                            <div class="card-image">
-                                <img src="img/nurgun1.png" alt="Ньургун" loading="lazy">
-                            </div>
+<div class="characters-slider-section" id="characters-slider">
+    <div class="container">
+        <h2 id="charactersTitle">Персонажи</h2>
+        <div class="slider-container">
+            <button class="slider-btn slider-prev" id="prevBtn">❮</button>
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slider-card">
+                        <div class="card-text">
+                            <h3 id="charName1">Ньургун</h3>
+                            <p id="charDesc1">Незатейливый озорник, который всегда в движении. Постоянно придумывает новые шалости и приключения для себя и друзей, но порой попадает в передряги — сначала делает, потом думает. Обожает природу и игры на улице — с ним не соскучишься!</p>
                         </div>
-                        <div class="slider-card">
-                            <div class="card-text">
-                                <h3 id="charName2">Тимир</h3>
-                                <p id="charDesc2">Спокойный и рассудительный друг, который всегда готов прийти на помощь. Любит головоломки, эксперименты и знает все о якутских традициях; подскажет, как превратить знания в дело. Надежный и терпеливый — с ним спокойно и интересно.</p>
-                            </div>
-                            <div class="card-image">
-                                <img src="img/timir.png" alt="Тимир" loading="lazy">
-                            </div>
+                        <div class="card-image">
+                            <img src="img/ньургун1.png" alt="Ньургун">
+                        </div>
+                    </div>
+                    <div class="slider-card">
+                        <div class="card-text">
+                            <h3 id="charName2">Тимир</h3>
+                            <p id="charDesc2">Спокойный и рассудительный друг, который всегда готов прийти на помощь. Любит головоломки, эксперименты и знает все о якутских традициях; подскажет, как превратить знания в дело. Надежный и терпеливый — с ним спокойно и интересно.</p>
+                        </div>
+                        <div class="card-image">
+                            <img src="img/тимир.png" alt="Тимир">
                         </div>
                     </div>
                 </div>
-                <button class="slider-btn slider-next" id="nextBtn">❯</button>
             </div>
-            <div class="dots" id="dotsContainer"></div>
+            <button class="slider-btn slider-next" id="nextBtn">❯</button>
         </div>
+        <div class="dots" id="dotsContainer"></div>
     </div>
+</div>
 
-    <div class="about-multik-section" id="about-multik">
-        <div class="container">
-            <div class="about-multik-card">
-                <h2 id="aboutTitle">📖 О МУЛЬТСЕРИАЛЕ</h2>
-                <div class="story-text">
-                    <p id="aboutText1">Сюжет мультсериала разворачивается вокруг озорного мальчика <strong>Ньургуна</strong>, который живет в живописной якутской деревне. Каждый эпизод начинается с того, что Ньургун сталкивается с новой ситуацией или проблемой, будь то необходимость научиться дружить, уважать старших или понимать важность природы.</p>
-                    <p id="aboutText2">На помощь ему приходит его лучший друг <strong>Тимир</strong> — умный и всезнающий мальчик, который знает все о якутских традициях и обычаях. Тимир не только делится знаниями, но и показывает Ньургуну, как применять их в повседневной жизни.</p>
-                    <div class="story-highlight" id="aboutHighlight">
-                        <i class="fas fa-feather-alt"></i> Каждая серия — это увлекательное путешествие в мир якутских легенд!
-                    </div>
+<div class="about-multik-section" id="about-multik">
+    <div class="container">
+        <div class="about-multik-card">
+            <h2 id="aboutTitle">📖 О МУЛЬТСЕРИАЛЕ</h2>
+            <div class="story-text">
+                <p id="aboutText1">Сюжет мультсериала разворачивается вокруг озорного мальчика <strong>Ньургуна</strong>, который живет в живописной якутской деревне. Каждый эпизод начинается с того, что Ньургун сталкивается с новой ситуацией или проблемой, будь то необходимость научиться дружить, уважать старших или понимать важность природы.</p>
+                <p id="aboutText2">На помощь ему приходит его лучший друг <strong>Тимир</strong> — умный и всезнающий мальчик, который знает все о якутских традициях и обычаях. Тимир не только делится знаниями, но и показывает Ньургуну, как применять их в повседневной жизни.</p>
+                <div class="story-highlight" id="aboutHighlight">
+                    <i class="fas fa-feather-alt"></i> Каждая серия — это увлекательное путешествие в мир якутских легенд!
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 
 <footer class="footer-contact" id="contact">
     <div class="container">
@@ -617,7 +645,7 @@
                 <div class="contact-details-footer">
                     <a href="mailto:timirnurgun@mail.ru"><i class="fas fa-envelope"></i> timirnurgun@mail.ru</a>
                     <a href="tel:+79679287970"><i class="fas fa-phone-alt"></i> +7 967 928 79 70</a>
-                    <span><i class="fas fa-map-marker-alt"></i> Ул. Строителей 8а, Якутск, 677001</span>
+                    <a><i class="fas fa-map-marker-alt"></i> Ул. Строителей 8а, Якутск, 677001</a>
                 </div>
             </div>
             <div class="footer-logo">
@@ -650,7 +678,7 @@
             mainTitle: "Тимир уонна Ньургун", watchBtn: "🎬 Көрүү", charactersTitle: "Дьоруойдар",
             charName1: "Ньургун", charDesc1: "Мэник, хамсаныылаах оҕо. Биир да сабыдыаллаах, доҕотторун кытта саҥа көрсүһүүлэри уонна оонньуулары булар, ол эрэн хаттаан мэһэйдэргэ түбэһэр — бастаан оҥорор, онтон толкуйдуур. Айылҕаны уонна таһырдьа оонньууну сөбүлүүр — кининиин сэргэхсиэххэ!",
             charName2: "Тимир", charDesc2: "Чэпчэки уонна толкуйдаах доҕор, ханнык баҕарар көмөнү оҥорорго бэлэм. Головоломкалары, эксперименнары сөбүлүүр уонна саха үгэстэрин барытын билэр; билиини олоххо хайдах туһанары көрдөрөр. Надежнай уонна сылык — кининиин чэпчэки уонна интэриэһинэй.",
-            aboutTitle: "📖 ОЙУУЛУК ТУҺУНАН", aboutText1: "Ойууллук сюжета сахалыы кэрэ айылҕалаах дэриэбинэҕэ олорор <strong>Ньургун</strong> диэн мэник уол тула эргийэр. Сиэрийэ аайы Ньургун саҥа түгэҥҥэ эбэтэр кыһалҕаҕа түбэһэр, холобур: доҕордоһорго үөрэнэргэ, улахан дьону ытыктыырга, эбэтэр айылҕаны харыстыыр суолтатын өйүүргэ.",
+            aboutTitle: "📖 ОЙУУЛУК ТУУНУНАН", aboutText1: "Ойууллук сюжета сахалыы кэрэ айылҕалаах дэриэбинэҕэ олорор <strong>Ньургун</strong> диэн мэник уол тула эргийэр. Сиэрийэ аайы Ньургун саҥа түгэҥҥэ эбэтэр кыһалҕаҕа түбэһэр, холобур: доҕордоһорго үөрэнэргэ, улахан дьону ытыктыырга, эбэтэр айылҕаны харыстыыр суолтатын өйүүргэ.",
             aboutText2: "Киниэхэ көмөҕө бастыҥ доҕоро <strong>Тимир</strong> кэлэр — саха төрүт үгэстэрин уонна сиэрдэрин барытын билэр өйүдөөх уол. Тимир билигиин үллэстэрин таһынан, Ньургунҥҥа ол билиини күннээҕи олоххо хайдах туһанары көрдөрөр.",
             aboutHighlight: "✨ Сиэрийэ аайы — саха алыптарын сиригэр айан!", contactsTitle: "Билсэр ситим",
             footerTagline: "Доҕордоһуу, халлаан уонна көмүскэл", footerCopyright: "© 2025 «Тимир уонна Ньургун» | Оҕолорго уонна төрөппүттэргэ | Саха сиригэр оҥоһулунна", langBtn: "🇷🇺 Нууччалыы"
@@ -658,12 +686,15 @@
     };
 
     let currentLang = localStorage.getItem('appLanguage') || 'ru';
-
+    
     function updateLanguage() {
         const t = translations[currentLang];
-        const elements = ['navHome', 'navAbout', 'navCharacters', 'navInteractive', 'navWatch', 'navContacts'];
-        elements.forEach(id => document.getElementById(id).textContent = t[id]);
-        
+        document.getElementById('navHome').textContent = t.navHome;
+        document.getElementById('navAbout').textContent = t.navAbout;
+        document.getElementById('navCharacters').textContent = t.navCharacters;
+        document.getElementById('navInteractive').textContent = t.navInteractive;
+        document.getElementById('navWatch').textContent = t.navWatch;
+        document.getElementById('navContacts').textContent = t.navContacts;
         document.getElementById('mainTitle').innerHTML = t.mainTitle;
         document.getElementById('watchBtnText').innerHTML = t.watchBtn;
         document.getElementById('charactersTitle').textContent = t.charactersTitle;
@@ -680,11 +711,21 @@
         document.getElementById('footerCopyright').textContent = t.footerCopyright;
         document.getElementById('langToggle').innerHTML = t.langBtn;
     }
-
+    
     document.getElementById('langToggle').addEventListener('click', () => {
         currentLang = currentLang === 'ru' ? 'sah' : 'ru';
         localStorage.setItem('appLanguage', currentLang);
         updateLanguage();
+    });
+
+    // Эффект скролла для хедера
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     });
 
     // Слайдер
@@ -695,30 +736,30 @@
     const dotsContainer = document.getElementById('dotsContainer');
     let currentIndex = 0;
     const totalSlides = slides.length;
-
-    function updateDots() {
-        document.querySelectorAll('.dot').forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
-        });
-    }
-
-    function goToSlide(index) {
-        currentIndex = Math.min(Math.max(0, index), totalSlides - 1);
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        updateDots();
-    }
-
+    
     function createDots() {
         dotsContainer.innerHTML = '';
-        for (let i = 0; i < totalSlides; i++) {
+        for(let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
-            if (i === currentIndex) dot.classList.add('active');
+            if(i === currentIndex) dot.classList.add('active');
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
         }
     }
-
+    
+    function updateDots() { 
+        document.querySelectorAll('.dot').forEach((dot, idx) => {
+            idx === currentIndex ? dot.classList.add('active') : dot.classList.remove('active');
+        }); 
+    }
+    
+    function goToSlide(index) { 
+        currentIndex = Math.min(Math.max(0, index), totalSlides - 1); 
+        track.style.transform = `translateX(-${currentIndex * 100}%)`; 
+        updateDots(); 
+    }
+    
     prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
     nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
     createDots();
@@ -729,22 +770,22 @@
     
     burgerBtn.addEventListener('click', () => {
         navContainer.classList.toggle('open');
-        burgerBtn.innerHTML = navContainer.classList.contains('open') ? '✕ Закрыть' : '☰ Меню';
+        burgerBtn.innerHTML = navContainer.classList.contains('open') ? '<i class="fas fa-times"></i> Закрыть' : '<i class="fas fa-bars"></i> Меню';
     });
 
     // Плавный скролл
     document.querySelectorAll('.nav-left a, .nav-right a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            if (href && href !== '#' && !href.includes('.html')) {
+            if(href && href !== '#' && !href.includes('.html')) {
                 e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                    if (window.innerWidth <= 880 && navContainer.classList.contains('open')) {
-                        navContainer.classList.remove('open');
-                        burgerBtn.innerHTML = '☰ Меню';
-                    }
+                const targetElem = document.querySelector(href);
+                if(targetElem) { 
+                    targetElem.scrollIntoView({ behavior: 'smooth' }); 
+                }
+                if(window.innerWidth <= 880 && navContainer.classList.contains('open')) {
+                    navContainer.classList.remove('open');
+                    burgerBtn.innerHTML = '<i class="fas fa-bars"></i> Меню';
                 }
             }
         });
